@@ -18,6 +18,15 @@
     max-width: 35%;
     font-size: 150%;
 }
+#sharpen{
+    margin-top: 60px;
+    padding: 30px;
+    padding-right: 70px;
+    padding-left: 70px;
+    margin-left: 31.5%;
+    max-width: 35%;
+    font-size: 150%;
+}
 .clear{
     clear: both;
 }

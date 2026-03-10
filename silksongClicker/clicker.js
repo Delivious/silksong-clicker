@@ -2,39 +2,26 @@ const body=document.querySelector("#body")
 const lighttool=document.querySelector("#lighttool")
 const hornetBtn = document.querySelector("#hornetBtn")
 const hornetPara = document.querySelector("#hornetVal")
+const sharpen=document.querySelector("#sharpen")
 
-let roseValue = 50
+let roseValue = 200
 let multiplier = 1
 let distance = 0
 let distanceX=0
+
 let throwerCost = 50
 let thrower=null
 let throwerCount=0
 
-let ai = null
-let aiCount=0
-let clickerValue = 500
-let clickVal = 1
-let pik = false
+let sharpCost=200
+let sharp=null
+let sharpCount=0
+
 let cpsCounter = 0
 let cps = 0
 let cpsSubtract = 0
-let amountToSpawn = 1
-let howFastFall = 1100
-let randomPik = null
-let collegeCount = 0
-let seniorBase = 3.5
-let teenCount = 0
-let seniorCount = 0
-let increase = true
-let randomStatus = true
-let aiBroken = false
-let teenValue = 100
-let collValue = 275
-let ep = false
-let teen = null
-let aiCheck = null
-let college = null
+
+sharpen.addEventListener("click",sharpened)
 hornetBtn.addEventListener("click",addValue)
 lighttool.addEventListener("click",throwy)
 
@@ -191,5 +178,24 @@ function throwy(){
 
     lighttool.textContent =
       `Get a Light Throwing Tool that gets you 1 Rosarie per second! Cost: ${throwerCost} Rosaries`
+  }
+}
+
+function sharpened(){
+  if (roseValue >= sharpCost){
+
+    if(!sharp){
+      sharp = setInterval(() =>{
+        roseValue += sharpCount
+        cps += sharpCount
+      },200)
+    }
+
+    sharpCount += 1
+    roseValue -= sharpCost
+    sharpCost = Math.trunc(sharpCost * 1.2)
+
+    sharpen.textContent =
+      `Get a Light Throwing Tool that gets you 1 Rosarie per second! Cost: ${sharpCost} Rosaries`
   }
 }
