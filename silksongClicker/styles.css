@@ -124,3 +124,27 @@
     box-shadow: 4px 4px 10px rgba(0,0,0,.15), -4px -4px 10px rgba(255,255,255,0.6);
     transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 }
+#btn1{
+    display: none;
+}
+#btn2{
+    display: none;
+}
+#btn3{
+    display: none;
+}
+#btn4{
+    display: none;
+}
+#btn5{
+    display: none;
+}
+#btn6{
+    display: none;
+}
+#btn7{
+    display: none;
+}
+#btn8{
+    display: none;
+}

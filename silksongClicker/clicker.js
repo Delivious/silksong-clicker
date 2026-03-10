@@ -1,14 +1,23 @@
 const body=document.querySelector("#body")
 const lighttool=document.querySelector("#lighttool")
-const hornetBtn = document.querySelector("#hornetBtn")
+const hornetBtn = document.querySelector("#hornetBtn1")
 const hornetPara = document.querySelector("#hornetVal")
 const sharpen=document.querySelector("#sharpen")
 const rpsText=document.querySelector("#rps")
 const threefoldBtn=document.querySelector("#threefold")
-
+const btn1 = document.querySelector("#btn1")
+const btn2 = document.querySelector("#btn2")
+const btn3 = document.querySelector("#btn3")
+const btn4 = document.querySelector("#btn4")
+const btn5 = document.querySelector("#btn5")
+const btn6 = document.querySelector("#btn6")
+const btn7 = document.querySelector("#btn7")
+const btn8 = document.querySelector("#btn8")
+const btnList = [btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, hornetBtn]
 let roseValue = 200
 let multiplier = 1
 let distance = 0
+let hornetBtnNew = null
 let distanceX=0
 
 let throwerCost = 50
@@ -111,6 +120,10 @@ function addValue(){
       hornetBtn.style.transform="scale(1)"
     }, 140)
   console.log(roseValue)
+  randomBtn = Math.floor(Math.random() * btnList.length)
+  hornetBtnNew = btnList[randomBtn].style.display = "block"
+  hornetBtn.style.display = "none"
+
 }
 
 function spawnParticles() {
