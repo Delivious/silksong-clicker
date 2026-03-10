@@ -3,6 +3,7 @@ const lighttool=document.querySelector("#lighttool")
 const hornetBtn = document.querySelector("#hornetBtn")
 const hornetPara = document.querySelector("#hornetVal")
 const sharpen=document.querySelector("#sharpen")
+const rpsText=document.querySelector("#rps")
 
 let roseValue = 200
 let multiplier = 1
@@ -17,14 +18,17 @@ let sharpCost=200
 let sharp=null
 let sharpCount=0
 
-let cpsCounter = 0
-let cps = 0
-let cpsSubtract = 0
+let rpsCounter = 0
+let rps = 0
+let rpsSubtract = 0
 
 sharpen.addEventListener("click",sharpened)
 hornetBtn.addEventListener("click",addValue)
 lighttool.addEventListener("click",throwy)
-
+setInterval(()=>{
+  rpsText.textContent=`Your RPS is: ${rps}`
+  rps=0
+},1000)
 setInterval(()=>{
   hornetPara.textContent = `Rosaries: ${roseValue}`
 })
@@ -112,7 +116,10 @@ function spawnParticles() {
   const targetX = targetRect.left + targetRect.width / 2
   const targetY = targetRect.top + targetRect.height / 2
 
-  const particleCount = Math.floor(Math.random() * 4) + 5
+  const particleCount = 1*multiplier
+  if (particleCount>=10){
+    particleCount=10
+  }
 
   for (let i = 0; i < particleCount; i++) {
     const particle = document.createElement('img')
@@ -168,7 +175,7 @@ function throwy(){
     if(!thrower){
       thrower = setInterval(() =>{
         roseValue += throwerCount
-        cps += throwerCount
+        rps += throwerCount
       },1000)
     }
 
@@ -187,7 +194,7 @@ function sharpened(){
     if(!sharp){
       sharp = setInterval(() =>{
         roseValue += sharpCount
-        cps += sharpCount
+        rps += sharpCount
       },200)
     }
 
