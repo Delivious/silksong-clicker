@@ -117,7 +117,7 @@ function spawnParticles() {
   for (let i = 0; i < particleCount; i++) {
     const particle = document.createElement('img')
     particle.className = 'particle'
-    particle.src = 'https://www.silk-song.org/_next/image?url=%2Fimages%2Fitems%2Frosaries.png&w=640&q=75'
+    particle.src = 'clickedhornet.png'
 
     // start at (or near) the hornet button center
     const jitterStartX = startX + (Math.random() - 0.5) * btnRect.width * 0.5
