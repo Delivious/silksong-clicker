@@ -1,15 +1,43 @@
 const body=document.querySelector("#body")
-const button=document.querySelector("#black")
+const lighttool=document.querySelector("#lighttool")
 const hornetBtn = document.querySelector("#hornetBtn")
 const hornetPara = document.querySelector("#hornetVal")
 
-let hornetValue = 0
+let roseValue = 50
 let multiplier = 1
 let distance = 0
 let distanceX=0
+let throwerCost = 50
+let thrower=null
+let throwerCount=0
 
+let ai = null
+let aiCount=0
+let clickerValue = 500
+let clickVal = 1
+let pik = false
+let cpsCounter = 0
+let cps = 0
+let cpsSubtract = 0
+let amountToSpawn = 1
+let howFastFall = 1100
+let randomPik = null
+let collegeCount = 0
+let seniorBase = 3.5
+let teenCount = 0
+let seniorCount = 0
+let increase = true
+let randomStatus = true
+let aiBroken = false
+let teenValue = 100
+let collValue = 275
+let ep = false
+let teen = null
+let aiCheck = null
+let college = null
 hornetBtn.addEventListener("click",addValue)
-button.addEventListener("click",colorchange)
+lighttool.addEventListener("click",throwy)
+
 
 function colorchange(){
   if (body.style.backgroundColor!="black"){
@@ -22,8 +50,8 @@ function colorchange(){
 }
 function addValue(){
   spawnParticles()
-  hornetValue+=multiplier
-  hornetPara = `Rosaries: ${hornetPara}`
+  roseValue+=multiplier
+  hornetPara.textContent = `Rosaries: ${roseValue}`
   setTimeout(() =>{
       hornetBtn.style.transform="rotate(-4deg) scale(1.16)"
     }, 0)
@@ -83,7 +111,7 @@ function addValue(){
     setTimeout(() =>{
       hornetBtn.style.transform="rotate(0deg) scale(1)"
     }, 140)
-  console.log(hornetValue)
+  console.log(roseValue)
 }
 
 function spawnParticles() {
@@ -139,7 +167,9 @@ function spawnParticles() {
 
     // remove after animation completes
     setTimeout(() => {
-      if (particle.parentNode) particle.parentNode.removeChild(particle)
-    }, duration + 50)
+      if (particle.parentNode) {
+        particle.parentNode.removeChild(particle)
+      }
+    }, 1000)
   }
 }
