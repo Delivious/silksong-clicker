@@ -17,3 +17,9 @@
 .clear{
     clear: both;
 }
+#hornetBtn{
+    float: left;
+    margin: 40px;
+    margin-left: 20%;
+    width: 30%;
+}

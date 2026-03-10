@@ -4,7 +4,7 @@ const button=document.querySelector("#black")
 button.addEventListener("click",colorchange)
 
 function colorchange(){
-  if (body.style.backgroundColor=="white"){
+  if (body.style.backgroundColor!="black"){
     body.style.backgroundColor="black"
   }
   else{
