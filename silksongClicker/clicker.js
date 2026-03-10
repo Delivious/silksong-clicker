@@ -203,6 +203,6 @@ function sharpened(){
     sharpCost = Math.trunc(sharpCost * 1.2)
 
     sharpen.textContent =
-      `Get a Light Throwing Tool that gets you 1 Rosarie per second! Cost: ${sharpCost} Rosaries`
+      `Get your Nail to slash attack the button for 5 Rosaries a second! Cost: ${sharpCost} Rosaries`
   }
 }
