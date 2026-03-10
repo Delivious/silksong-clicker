@@ -87,61 +87,59 @@ function addValue(){
 }
 
 function spawnParticles() {
-  const imageRect = hornetBtn.getBoundingClientRect()
-  const centerX = imageRect.left + imageRect.width / 2
-  const centerY = imageRect.top + imageRect.height / 2
-  
+  const btnRect = hornetBtn.getBoundingClientRect()
+  const targetRect = hornetPara.getBoundingClientRect()
+
+  const startX = btnRect.left + btnRect.width / 2
+  const startY = btnRect.top + btnRect.height / 2
+  const targetX = targetRect.left + targetRect.width / 2
+  const targetY = targetRect.top + targetRect.height / 2
 
   const particleCount = Math.floor(Math.random() * 4) + 5
-  
+
   for (let i = 0; i < particleCount; i++) {
-      const particle = document.createElement('img')
-      particle.className = 'particle'
-      particle.src = 'https://www.silk-song.org/_next/image?url=%2Fimages%2Fitems%2Frosaries.png&w=640&q=75'
-    
-      particle.style.left = Math.floor(Math.random() * imageRect.width) + imageRect.left + 'px'
-      particle.style.top = Math.floor(Math.random() * imageRect.height) + imageRect.top + 'px'
-    
+    const particle = document.createElement('img')
+    particle.className = 'particle'
+    particle.src = 'https://www.silk-song.org/_next/image?url=%2Fimages%2Fitems%2Frosaries.png&w=640&q=75'
+
+    // start at (or near) the hornet button center
+    const jitterStartX = startX + (Math.random() - 0.5) * btnRect.width * 0.5
+    const jitterStartY = startY + (Math.random() - 0.5) * btnRect.height * 0.5
+
+    // small random end offset so particles don't stack exactly
+    const jitterEndX = (Math.random() - 0.5) * 20
+    const jitterEndY = (Math.random() - 0.5) * 12
+
+    // styles for animation
+    const duration = 700 + Math.floor(Math.random() * 300) // ms
+    Object.assign(particle.style, {
+      position: 'fixed',
+      left: `${jitterStartX}px`,
+      top: `${jitterStartY}px`,
+      width: '28px',
+      height: '28px',
+      transform: 'translate(-50%,-50%) scale(1)',
+      transition: `left ${duration}ms cubic-bezier(.2,.9,.2,1), top ${duration}ms cubic-bezier(.2,.9,.2,1), transform ${duration}ms linear, opacity ${duration}ms linear`,
+      zIndex: 9999,
+      pointerEvents: 'none',
+      opacity: '1'
+    })
+
     document.body.appendChild(particle)
-    cashExplode(particle, imageRect)
+
+    // force style flush so transition will run
+    requestAnimationFrame(() => {
+      // move to target (center of hornetPara) with a little jitter
+      particle.style.left = `${targetX + jitterEndX}px`
+      particle.style.top = `${targetY + jitterEndY}px`
+      // shrink & fade as it arrives
+      particle.style.transform = 'translate(-50%,-50%) scale(0.4)'
+      particle.style.opacity = '0'
+    })
+
+    // remove after animation completes
     setTimeout(() => {
-      if (particle.parentNode) {
-        particle.parentNode.removeChild(particle)
-      }
-    }, 1000)
-  }
-}
-
-function cashExplode(particle, imageRect) {
-  const startX = parseFloat(particle.style.left)
-  const startY = parseFloat(particle.style.top)
-  const imageRectX = imageRect.left
-  const imageRectY = imageRect.top
-  const imageRectXOpposite = -imageRect.left
-  const imageRectYOpposite = -imageRect.top
-  const duration = 1
-    const angle = (Math.random() - 0.5) * Math.PI / 2 
-    const speed = Math.random() * 200 + 150              
-    let vx = Math.cos(angle) * speed
-    let vy = -Math.abs(Math.sin(angle) * speed)
-
-  const gravity = 600 
-  const steps = 50
-
-  for (let i = 0; i <= steps; i++) {
-    setTimeout(() => {
-      const t = (i / steps) * duration
-      const x = startX + vx * t
-      const y = startY + vy * t + 0.5 * gravity * t * t
-      
-      if (x < imageRectX || x > imageRectXOpposite) {
-        vx -= 50 * t
-      } 
-      else {
-        vx += 50 * t 
-      }
-      particle.style.left = x + 'px'
-      particle.style.top = y + 'px'
-    }, (i * duration / steps) * 1000)
+      if (particle.parentNode) particle.parentNode.removeChild(particle)
+    }, duration + 50)
   }
 }
