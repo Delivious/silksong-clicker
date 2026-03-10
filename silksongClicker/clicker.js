@@ -38,7 +38,9 @@ let college = null
 hornetBtn.addEventListener("click",addValue)
 lighttool.addEventListener("click",throwy)
 
-
+setInterval(()=>{
+  hornetPara.textContent = `Rosaries: ${roseValue}`
+})
 function colorchange(){
   if (body.style.backgroundColor!="black"){
     body.style.backgroundColor="black"
