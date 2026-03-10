@@ -46,63 +46,63 @@ function addValue(){
   roseValue+=multiplier
   hornetPara.textContent = `Rosaries: ${roseValue}`
   setTimeout(() =>{
-      hornetBtn.style.transform="rotate(-4deg) scale(1.16)"
+      hornetBtn.style.transform="scale(1.16)"
     }, 0)
     
     setTimeout(() =>{
-      hornetBtn.style.transform="rotate(-6deg) scale(1.24)"
+      hornetBtn.style.transform="scale(1.2)"
     }, 10)
     
     setTimeout(() =>{
-      hornetBtn.style.transform="rotate(-8deg) scale(1.32)"
+      hornetBtn.style.transform="scale(1.24)"
     }, 20)
     
     setTimeout(() =>{
-      hornetBtn.style.transform="rotate(-10deg) scale(1.40)"
+      hornetBtn.style.transform="scale(1.28)"
     }, 30)
     
     setTimeout(() =>{
-      hornetBtn.style.transform="rotate(-13deg) scale(1.48)"
+      hornetBtn.style.transform="scale(1.32)"
     }, 40)
     
     setTimeout(() =>{
-      hornetBtn.style.transform="rotate(-16deg) scale(1.56)"
+      hornetBtn.style.transform="scale(1.36)"
     }, 50)
     
     setTimeout(() =>{
-      hornetBtn.style.transform="rotate(-20deg) scale(1.56)"
+      hornetBtn.style.transform="scale(1.36)"
     }, 60)
     
     setTimeout(() =>{
-      hornetBtn.style.transform="rotate(-16deg) scale(1.48)"
+      hornetBtn.style.transform="scale(1.32)"
     }, 70)
     
     setTimeout(() =>{
-      hornetBtn.style.transform="rotate(-13deg) scale(1.40)"
+      hornetBtn.style.transform="scale(1.28)"
     }, 80)
     
     setTimeout(() =>{
-      hornetBtn.style.transform="rotate(-10deg) scale(1.32)"
+      hornetBtn.style.transform="scale(1.24)"
     }, 90)
     
     setTimeout(() =>{
-      hornetBtn.style.transform="rotate(-8deg) scale(0.95)"
+      hornetBtn.style.transform="scale(0.95)"
     }, 100)
     
     setTimeout(() =>{
-      hornetBtn.style.transform="rotate(-6deg) scale(0.8)"
+      hornetBtn.style.transform="scale(0.8)"
     }, 110)
     
     setTimeout(() =>{
-      hornetBtn.style.transform="rotate(4deg) scale(0.7)"
+      hornetBtn.style.transform="scale(0.7)"
     }, 120)
     
     setTimeout(() =>{
-      hornetBtn.style.transform="rotate(2deg) scale(0.88)"
+      hornetBtn.style.transform="scale(0.88)"
     }, 130)
     
     setTimeout(() =>{
-      hornetBtn.style.transform="rotate(0deg) scale(1)"
+      hornetBtn.style.transform="scale(1)"
     }, 140)
   console.log(roseValue)
 }
