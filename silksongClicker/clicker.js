@@ -173,3 +173,21 @@ function spawnParticles() {
     }, 1000)
   }
 }
+function throwy(){
+  if (roseValue >= throwerCost){
+
+    if(!thrower){
+      thrower = setInterval(() =>{
+        roseValue += throwerCount
+        cps += throwerCount
+      },1000)
+    }
+
+    throwerCount += 1
+    roseValue -= throwerCost
+    throwerCost = Math.trunc(throwerCost * 1.2)
+
+    lighttool.textContent =
+      `Get a Light Throwing Tool that gets you 1 Rosarie per second! Cost: ${throwerCost} Rosaries`
+  }
+}
