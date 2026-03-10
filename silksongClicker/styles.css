@@ -1,25 +1,49 @@
 #h1{
     font-size: 500%;
     font-weight: bolder;
+    text-align: center;
     padding-left: 32%;
+    max-width: 36%;
     text-shadow: 5px 5px 10px rgba(0,0,0,.15), -5px -5px 10px rgba(255,255,255,0.6);
 }
 #body{
     background: linear-gradient(90deg, lightgreen, darkgreen);
 }
-#black{
+#lighttool{
     margin-top: 30px;
     padding: 30px;
     padding-right: 70px;
     padding-left: 70px;
-    margin-left: 43%;
+    margin-left: 31.5%;
+    max-width: 35%;
+    font-size: 150%;
 }
 .clear{
     clear: both;
 }
 #hornetBtn{
     float: left;
+<<<<<<< HEAD
     margin: 40px;
     margin-left: 20%;
     width: 30%;
+=======
+    margin: 30px;
+    margin-left: 41.5%;
+    transform-origin: center;
+    transition: transform 0.06s ease-out;
+    position: relative;
+}
+.particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    pointer-events: none;
+}
+#hornetVal{
+    font-weight: bolder;
+    font-family: 'Courier New', Courier, monospace;
+    float: left;
+>>>>>>> ccbb641f524c773ba571bcafa94f26a6262d885b
 }
