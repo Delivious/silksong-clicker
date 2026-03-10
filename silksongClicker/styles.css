@@ -14,45 +14,67 @@
     padding: 30px;
     padding-right: 70px;
     padding-left: 70px;
+    text-align: center;
     margin-left: 31.5%;
     max-width: 35%;
+    width: 35%;
     font-size: 150%;
     border-radius: 14px;
     transition: transform 0.2s ease-out;
 }
 #lighttool:hover{
     margin-top: 30px;
+    text-align: center;
     padding: 30px;
     padding-right: 70px;
     padding-left: 70px;
     margin-left: 31.5%;
     max-width: 35%;
+    width: 35%;
     font-size: 150%;
     border-radius: 14px;
     transform: translateX(5px) translateY(-10px);
-    box-shadow: 4px 4px 10px rgba(0,0,0,.15), -4px -4px -10px rgba(255,255,255,0.6);
+    box-shadow: 4px 4px 10px rgba(0,0,0,.15), -4px -4px 10px rgba(255,255,255,0.6);
     transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 }
 #sharpen{
-    margin-top: 60px;
+    margin-top: 30px;
+    padding: 30px;
+    padding-right: 70px;
+    padding-left: 70px;
+    margin-left: 31.5%;
+    text-align: center;
+    max-width: 35%;
+    width: 35%;
+    font-size: 150%;
+    border-radius: 14px;
+    transition: transform 0.2s ease-out;
+}
+#sharpen:hover{
+    margin-top: 30px;
+    text-align: center;
     padding: 30px;
     padding-right: 70px;
     padding-left: 70px;
     margin-left: 31.5%;
     max-width: 35%;
+    width: 35%;
     font-size: 150%;
+    border-radius: 14px;
+    transform: translateX(5px) translateY(-10px);
+    box-shadow: 4px 4px 10px rgba(0,0,0,.15), -4px -4px 10px rgba(255,255,255,0.6);
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 }
+
 .clear{
     clear: both;
 }
 #hornetBtn{
     float: left;
-    margin: 40px;
-    margin-left: 20%;
     margin: 30px;
+    margin-left: 43%;
     transform-origin: center;
     transition: transform 0.06s ease-out;
-    position: relative;
 }
 .particle {
     position: absolute;
@@ -65,4 +87,5 @@
     font-weight: bolder;
     font-family: 'Courier New', Courier, monospace;
     float: left;
+    margin-left: 45%;
 }
