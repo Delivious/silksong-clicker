@@ -4,6 +4,7 @@ const hornetBtn = document.querySelector("#hornetBtn")
 const hornetPara = document.querySelector("#hornetVal")
 const sharpen=document.querySelector("#sharpen")
 const rpsText=document.querySelector("#rps")
+const threefoldBtn=document.querySelector("#threefold")
 
 let roseValue = 200
 let multiplier = 1
@@ -22,9 +23,14 @@ let rpsCounter = 0
 let rps = 0
 let rpsSubtract = 0
 
+let threefoldCost = 750
+let threefold=null
+let threefoldCount=0
+
 sharpen.addEventListener("click",sharpened)
 hornetBtn.addEventListener("click",addValue)
 lighttool.addEventListener("click",throwy)
+threefoldBtn.addEventListener("click",threefoldfunc)
 setInterval(()=>{
   rpsText.textContent=`Your RPS is: ${rps}`
   rps=0
@@ -204,5 +210,22 @@ function sharpened(){
 
     sharpen.textContent =
       `Get your Nail to slash attack the button for 5 Rosaries a second! Cost: ${sharpCost} Rosaries`
+  }
+}
+function threefoldfunc(){
+  if (roseValue >= threefoldCost){
+
+    if(!threefold){
+      threefold = setInterval(() =>{
+        roseValue += 3*threefoldCount
+        rps += 3*threefoldCount
+      },200)
+    }
+
+    threefoldCount += 1
+    roseValue -= threefoldCost
+    threefoldCost = Math.trunc(threefoldCost * 1.2)
+
+    threefoldBtn.textContent = `Get your Threefold Pin and throw pins at the button for 15 Rosaries a second! Cost: ${threefoldCost} Rosaries`
   }
 }
