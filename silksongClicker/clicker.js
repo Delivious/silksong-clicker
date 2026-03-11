@@ -18,6 +18,10 @@ const btn5 = document.querySelector("#btn5")
 const btn6 = document.querySelector("#btn6")
 const btn7 = document.querySelector("#btn7")
 const btn8 = document.querySelector("#btn8")
+
+
+
+const soundList = ["deeperren.mp3", "gauruma.mp3", "haaa.mp3", "hegale.mp3", "hornet_edino.mp3", "hornet_gitgud.mp3", "ren.mp3", "shaw.mp3","musica.mp3"]
 const btnList = [btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, hornetBtn]
 const upgList = [upg1]
 const upgChildren = [upg1Desc]
@@ -174,7 +178,9 @@ function addValue(){
   randomBtn = Math.floor(Math.random() * btnList.length)
   hornetBtnNew = btnList[randomBtn]
   hornetBtnNew.style.display = "block"
-  
+  randomHorn = soundList[Math.floor(Math.random()*(soundList.length))]
+  audioHorn = new Audio(src=randomHorn)
+  audioHorn.play()
 
 }
 
