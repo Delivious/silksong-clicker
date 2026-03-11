@@ -24,7 +24,7 @@ const btn8 = document.querySelector("#btn8")
 
 
 
-const soundList = ["deeperren.mp3", "gauruma.mp3", "haaa.mp3", "hegale.mp3", "hornet_edino.mp3", "hornet_gitgud.mp3", "ren.mp3", "shaw.mp3","musica.mp3"]
+const soundList = ["deeperren.mp3", "gauruma.mp3", "haaa.mp3", "hegale.mp3", "hornet_edino.mp3", "hornet_gitgud.mp3", "ren.mp3", "shaw.mp3"]
 const btnList = [btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, hornetBtn]
 const upgList = [upg1, upg2, upg3]
 const upgChildren = [upg1Desc, upg2Desc, upg3Desc]
