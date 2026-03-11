@@ -8,8 +8,10 @@ const body=document.querySelector("#body")
 const upg1Desc=document.querySelector("#upg1Desc")
 const upg2Desc=document.querySelector("#upg2Desc")
 const upg3Desc=document.querySelector("#upg3Desc")
+const upg4Desc=document.querySelector("#upg4Desc")
 const upgradeContainer=document.querySelector("#upgradeContainer")
 const upg1 = document.querySelector("#upg1")
+const upg4 = document.querySelector("#upg4")
 const threefoldBtn=document.querySelector("#threefold")
 const upg2 = document.querySelector("#upg2")
 const upg3 = document.querySelector("#upg3")
@@ -26,8 +28,8 @@ const btn8 = document.querySelector("#btn8")
 
 const soundList = ["deeperren.mp3", "gauruma.mp3", "haaa.mp3", "hegale.mp3", "hornet_edino.mp3", "hornet_gitgud.mp3", "ren.mp3", "shaw.mp3"]
 const btnList = [btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, hornetBtn]
-const upgList = [upg1, upg2, upg3]
-const upgChildren = [upg1Desc, upg2Desc, upg3Desc]
+const upgList = [upg1, upg2, upg3, upg4]
+const upgChildren = [upg1Desc, upg2Desc, upg3Desc, upg4Desc]
 let roseValue = 12893749812734
 let multiplier = 1
 let sharpenMultiplier = 1
@@ -84,6 +86,14 @@ upg2.addEventListener("click", () => {
     upg2.style.display = "none"
     sharpenMultiplier+=1
     sharpen.textContent = `Get your Nail to slash attack the button for ${5*sharpenMultiplier} Rosaries a second! Cost: ${sharpCost} Rosaries`
+  }
+})
+upg4.addEventListener("click", () => {
+  if (roseValue >= 2500) {
+    roseValue -= 2500
+    upg4.style.display = "none"
+    multiplier+=1
+    
   }
 })
 setInterval(()=>{
@@ -283,8 +293,8 @@ function sharpened(){
 
     if(!sharp){
       sharp = setInterval(() =>{
-        roseValue += 1*sharpenMultiplier
-        rps += 1*sharpenMultiplier
+        roseValue += (1*sharpCount)*sharpenMultiplier
+        rps += (1*sharpCount)*sharpenMultiplier
       },200)
     }
 
