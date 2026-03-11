@@ -205,6 +205,7 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
+    float: left;
 }
 #upg1:hover{
     background-color: rgba(255, 255, 255, 0.2);
@@ -213,14 +214,36 @@
 .upgradeDesc{
     display: none;
     position: absolute;
-    top: 60px;
-    left: -200px;
+    top: 0px;
+    left: -220px;
     width: 200px;
     height: 200px;
-    max-width: 10%;
-    background-color: rgba(0, 0, 0, 1);
+    max-width: 25%;
+    color: white;
+    font-style: italic;
+    background-color: rgba(25, 25, 25, 1);
     padding: 10px;
     border-radius: 4px;
     border: 1px solid white;
     z-index: 1000;
+}
+#upg2{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    float: left;
+}
+#upg2:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+#upg3{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    float: left;
+}
+#upg3:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
 }
