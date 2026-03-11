@@ -262,7 +262,7 @@ function throwy(){
 
     throwerCount += 1
     roseValue -= throwerCost
-    throwerCost = Math.trunc(throwerCost * 1.2)
+    throwerCost = Math.trunc(throwerCost * 1.1)
 
     lighttool.textContent =
       `Get a Light Throwing Tool that gets you 1 Rosarie per second! Cost: ${throwerCost} Rosaries`
@@ -281,7 +281,7 @@ function sharpened(){
 
     sharpCount += 1
     roseValue -= sharpCost
-    sharpCost = Math.trunc(sharpCost * 1.2)
+    sharpCost = Math.trunc(sharpCost * 1.1)
 
     sharpen.textContent =
       `Get your Nail to slash attack the button for 5 Rosaries a second! Cost: ${sharpCost} Rosaries`
@@ -299,7 +299,7 @@ function threefoldfunc(){
 
     threefoldCount += 1
     roseValue -= threefoldCost
-    threefoldCost = Math.trunc(threefoldCost * 1.2)
+    threefoldCost = Math.trunc(threefoldCost * 1.1)
 
     threefoldBtn.textContent = `Get your Threefold Pin and throw pins at the button for 15 Rosaries a second! Cost: ${threefoldCost} Rosaries`
   }
