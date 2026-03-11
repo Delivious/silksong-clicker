@@ -8,6 +8,7 @@
 }
 #body{
     background: linear-gradient(90deg, lightgreen, darkgreen);
+    position: relative;
 }
 #lighttool{
     margin-top: 30px;
@@ -76,7 +77,7 @@
 .clear{
     clear: both;
 }
-#hornetBtn{
+#hornetBtn1{
     float: left;
     margin: 30px;
     margin-left: 43%;
@@ -126,25 +127,65 @@
 }
 #btn1{
     display: none;
+    float: left;
+    margin: 30px;
+    margin-left: 43%;
+    transform-origin: center;
+    transition: transform 0.06s ease-out;
 }
 #btn2{
     display: none;
+    float: left;
+    margin: 30px;
+    margin-left: 43%;
+    transform-origin: center;
+    transition: transform 0.06s ease-out;
 }
 #btn3{
     display: none;
+    float: left;
+    margin: 30px;
+    margin-left: 43%;
+    transform-origin: center;
+    transition: transform 0.06s ease-out;
 }
 #btn4{
     display: none;
+    float: left;
+    margin: 30px;
+    margin-left: 43%;
+    transform-origin: center;
+    transition: transform 0.06s ease-out;
 }
 #btn5{
     display: none;
+    float: left;
+    margin: 30px;
+    margin-left: 43%;
+    transform-origin: center;
+    transition: transform 0.06s ease-out;
 }
 #btn6{
     display: none;
+    float: left;
+    margin: 30px;
+    margin-left: 43%;
+    transform-origin: center;
+    transition: transform 0.06s ease-out;
 }
 #btn7{
     display: none;
+    float: left;
+    margin: 30px;
+    margin-left: 43%;
+    transform-origin: center;
+    transition: transform 0.06s ease-out;
 }
 #btn8{
     display: none;
+    float: left;
+    margin: 30px;
+    margin-left: 43%;
+    transform-origin: center;
+    transition: transform 0.06s ease-out;
 }
