@@ -1,14 +1,24 @@
-const body=document.querySelector("#body")
+
 const lighttool=document.querySelector("#lighttool")
-const hornetBtn = document.querySelector("#hornetBtn")
+const hornetBtn = document.querySelector("#hornetBtn1")
 const hornetPara = document.querySelector("#hornetVal")
 const sharpen=document.querySelector("#sharpen")
 const rpsText=document.querySelector("#rps")
 const threefoldBtn=document.querySelector("#threefold")
 
-let roseValue = 750000
+const btn1 = document.querySelector("#btn1")
+const btn2 = document.querySelector("#btn2")
+const btn3 = document.querySelector("#btn3")
+const btn4 = document.querySelector("#btn4")
+const btn5 = document.querySelector("#btn5")
+const btn6 = document.querySelector("#btn6")
+const btn7 = document.querySelector("#btn7")
+const btn8 = document.querySelector("#btn8")
+const btnList = [btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, hornetBtn]
+let roseValue = 712378274192598314
 let multiplier = 1
 let distance = 0
+let hornetBtnNew = null
 let distanceX=0
 
 let throwerCost = 50
@@ -31,6 +41,20 @@ sharpen.addEventListener("click",sharpened)
 hornetBtn.addEventListener("click",addValue)
 lighttool.addEventListener("click",throwy)
 threefoldBtn.addEventListener("click",threefoldfunc)
+btn1.addEventListener("click",addValue)
+btn2.addEventListener("click",addValue)
+btn3.addEventListener("click",addValue)
+btn4.addEventListener("click",addValue)
+btn5.addEventListener("click",addValue)
+btn6.addEventListener("click",addValue)
+btn7.addEventListener("click",addValue)
+btn8.addEventListener("click",addValue)
+addEventListener("keydown",(e)=>{
+  if (e.code=="Space"){
+    e.preventDefault()
+    addValue()
+  }
+})
 setInterval(()=>{
   rpsText.textContent=`Your RPS is: ${rps}`
   rps=0
@@ -48,79 +72,106 @@ function colorchange(){
   
 }
 function addValue(){
+  // spawn before we hide/swap the button so particles originate from
+  // the image the user actually clicked
   spawnParticles()
   roseValue+=multiplier
   hornetPara.textContent = `Rosaries: ${roseValue}`
   setTimeout(() =>{
       hornetBtn.style.transform="scale(1.16)"
+      hornetBtnNew.style.transform="scale(1.16)"
     }, 0)
     
     setTimeout(() =>{
       hornetBtn.style.transform="scale(1.2)"
+      hornetBtnNew.style.transform="scale(1.2)"
     }, 10)
     
     setTimeout(() =>{
       hornetBtn.style.transform="scale(1.24)"
+      hornetBtnNew.style.transform="scale(1.24)"
     }, 20)
     
     setTimeout(() =>{
       hornetBtn.style.transform="scale(1.28)"
+      hornetBtnNew.style.transform="scale(1.28)"
     }, 30)
     
     setTimeout(() =>{
       hornetBtn.style.transform="scale(1.32)"
+      hornetBtnNew.style.transform="scale(1.32)"
     }, 40)
     
     setTimeout(() =>{
       hornetBtn.style.transform="scale(1.36)"
+      hornetBtnNew.style.transform="scale(1.36)"
     }, 50)
     
     setTimeout(() =>{
       hornetBtn.style.transform="scale(1.36)"
+      hornetBtnNew.style.transform="scale(1.36)"
     }, 60)
     
     setTimeout(() =>{
       hornetBtn.style.transform="scale(1.32)"
+      hornetBtnNew.style.transform="scale(1.32)"
     }, 70)
     
     setTimeout(() =>{
       hornetBtn.style.transform="scale(1.28)"
+      hornetBtnNew.style.transform="scale(1.28)"
     }, 80)
     
     setTimeout(() =>{
       hornetBtn.style.transform="scale(1.24)"
+      hornetBtnNew.style.transform="scale(1.24)"
     }, 90)
     
     setTimeout(() =>{
       hornetBtn.style.transform="scale(0.95)"
+      hornetBtnNew.style.transform="scale(0.95)"
     }, 100)
     
     setTimeout(() =>{
       hornetBtn.style.transform="scale(0.8)"
+      hornetBtnNew.style.transform="scale(0.8)"
     }, 110)
     
     setTimeout(() =>{
       hornetBtn.style.transform="scale(0.7)"
+      hornetBtnNew.style.transform="scale(0.7)"
     }, 120)
     
     setTimeout(() =>{
       hornetBtn.style.transform="scale(0.88)"
+      hornetBtnNew.style.transform="scale(0.88)"
     }, 130)
     
     setTimeout(() =>{
       hornetBtn.style.transform="scale(1)"
+      hornetBtnNew.style.transform="scale(1)"
     }, 140)
   console.log(roseValue)
+  if (hornetBtnNew != null){
+    hornetBtnNew.style.display = "none"
+  }
+  hornetBtn.style.display = "none"
+  randomBtn = Math.floor(Math.random() * btnList.length)
+  hornetBtnNew = btnList[randomBtn]
+  hornetBtnNew.style.display = "block"
+  
+
 }
 
 function spawnParticles() {
-  const btnRect = hornetBtn.getBoundingClientRect()
+  const activeButton = hornetBtnNew || hornetBtn
+  const btnRect = activeButton.getBoundingClientRect()
   const targetRect = hornetPara.getBoundingClientRect()
 
   const startX = btnRect.left + btnRect.width / 2
   const startY = btnRect.top + btnRect.height / 2
   const targetX = targetRect.left + targetRect.width / 2
-  const targetY = targetRect.top + targetRect.height / 2
+  const targetY = targetRect.top + targetRect.height / 2 - 40 
 
   const particleCount = 1*multiplier
   if (particleCount>=10){
@@ -143,7 +194,7 @@ function spawnParticles() {
     // styles for animation
     const duration = 700 + Math.floor(Math.random() * 300) // ms
     Object.assign(particle.style, {
-      position: 'fixed',
+      position: 'absolute',
       left: `${jitterStartX}px`,
       top: `${jitterStartY}px`,
       width: '28px',
