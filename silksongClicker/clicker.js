@@ -23,7 +23,9 @@ const btn5 = document.querySelector("#btn5")
 const btn6 = document.querySelector("#btn6")
 const btn7 = document.querySelector("#btn7")
 const btn8 = document.querySelector("#btn8")
-
+const rebirthBtn = document.querySelector("#rebirthBtn")
+const rebirthMenu = document.querySelector("#rebirthMenu")
+const rebirthTree = document.querySelector("#rebirthTree")
 
 
 const soundList = ["deeperren.mp3", "gauruma.mp3", "haaa.mp3", "hegale.mp3", "hornet_edino.mp3", "hornet_gitgud.mp3", "ren.mp3", "shaw.mp3"]
@@ -36,6 +38,7 @@ let sharpenMultiplier = 1
 let distance = 0
 let hornetBtnNew = null
 let distanceX=0
+let displayMenu = false
 
 let throwerCost = 50
 let thrower=null
@@ -65,6 +68,18 @@ btn5.addEventListener("click",addValue)
 btn6.addEventListener("click",addValue)
 btn7.addEventListener("click",addValue)
 btn8.addEventListener("click",addValue)
+rebirthBtn.addEventListener("click", () => {
+  if (!displayMenu){
+    rebirthMenu.style.display = "none"
+    rebirthTree.style.display = "none"
+    displayMenu = true
+  } 
+  else {
+    rebirthMenu.style.display = "flex"
+    rebirthTree.style.display = "flex"
+    displayMenu = false
+  }
+})
 upgList.forEach((el, idx) => {
   if (!el) return
   el.addEventListener('mouseenter', () => {
