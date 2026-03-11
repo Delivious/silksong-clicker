@@ -4,6 +4,10 @@ const hornetBtn = document.querySelector("#hornetBtn1")
 const hornetPara = document.querySelector("#hornetVal")
 const sharpen=document.querySelector("#sharpen")
 const rpsText=document.querySelector("#rps")
+const body=document.querySelector("#body")
+const upg1Desc=document.querySelector("#upg1Desc")
+const upgradeContainer=document.querySelector("#upgradeContainer")
+const upg1 = document.querySelector("#upg1")
 const threefoldBtn=document.querySelector("#threefold")
 const btn1 = document.querySelector("#btn1")
 const btn2 = document.querySelector("#btn2")
@@ -14,6 +18,8 @@ const btn6 = document.querySelector("#btn6")
 const btn7 = document.querySelector("#btn7")
 const btn8 = document.querySelector("#btn8")
 const btnList = [btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, hornetBtn]
+const upgList = [upg1]
+const upgChildren = [upg1Desc]
 let roseValue = 200
 let multiplier = 1
 let distance = 0
@@ -48,6 +54,15 @@ btn5.addEventListener("click",addValue)
 btn6.addEventListener("click",addValue)
 btn7.addEventListener("click",addValue)
 btn8.addEventListener("click",addValue)
+upgList.forEach((el, idx) => {
+  if (!el) return
+  el.addEventListener('mouseenter', () => {
+    upgChildren[idx].style.display = 'block'
+  })
+  el.addEventListener('mouseleave', () => {
+    upgChildren[idx].style.display = 'none'
+  })
+})
 addEventListener("keydown",(e)=>{
   if (e.code=="Space"){
     e.preventDefault()
