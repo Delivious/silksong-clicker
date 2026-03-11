@@ -30,6 +30,7 @@ const upgList = [upg1, upg2, upg3]
 const upgChildren = [upg1Desc, upg2Desc, upg3Desc]
 let roseValue = 12893749812734
 let multiplier = 1
+let sharpenMultiplier = 1
 let distance = 0
 let hornetBtnNew = null
 let distanceX=0
@@ -75,6 +76,14 @@ addEventListener("keydown",(e)=>{
   if (e.code=="Space"){
     e.preventDefault()
     addValue()
+  }
+})
+upg2.addEventListener("click", () => {
+  if (roseValue >= 1000) {
+    roseValue -= 1000
+    upg2.style.display = "none"
+    sharpenMultiplier+=1
+    sharpen.textContent = `Get your Nail to slash attack the button for ${5*sharpenMultiplier} Rosaries a second! Cost: ${sharpCost} Rosaries`
   }
 })
 setInterval(()=>{
@@ -274,8 +283,8 @@ function sharpened(){
 
     if(!sharp){
       sharp = setInterval(() =>{
-        roseValue += sharpCount
-        rps += sharpCount
+        roseValue += 1*sharpenMultiplier
+        rps += 1*sharpenMultiplier
       },200)
     }
 
@@ -284,7 +293,7 @@ function sharpened(){
     sharpCost = Math.trunc(sharpCost * 1.1)
 
     sharpen.textContent =
-      `Get your Nail to slash attack the button for 5 Rosaries a second! Cost: ${sharpCost} Rosaries`
+      `Get your Nail to slash attack the button for ${5*sharpenMultiplier} Rosaries a second! Cost: ${sharpCost} Rosaries`
   }
 }
 function threefoldfunc(){
