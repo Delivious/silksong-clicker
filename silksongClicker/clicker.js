@@ -6,7 +6,7 @@ const sharpen=document.querySelector("#sharpen")
 const rpsText=document.querySelector("#rps")
 const threefoldBtn=document.querySelector("#threefold")
 
-let roseValue = 200
+let roseValue = 750000
 let multiplier = 1
 let distance = 0
 let distanceX=0
