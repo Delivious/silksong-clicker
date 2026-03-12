@@ -28,7 +28,7 @@ const rebirthMenu = document.querySelector("#rebirthMenu")
 const rebirthTree = document.querySelector("#rebirthTree")
 
 
-const soundList = ["deeperren.mp3", "gauruma.mp3", "haaa.mp3", "hegale.mp3", "hornet_edino.mp3", "hornet_gitgud.mp3", "ren.mp3", "shaw.mp3"]
+const soundList = ["assets/deeperren.mp3", "assets/gauruma.mp3", "assets/haaa.mp3", "assets/hegale.mp3", "assets/hornet_edino.mp3", "assets/hornet_gitgud.mp3", "assets/ren.mp3", "assets/shaw.mp3"]
 const btnList = [btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, hornetBtn]
 const upgList = [upg1, upg2, upg3, upg4]
 const upgChildren = [upg1Desc, upg2Desc, upg3Desc, upg4Desc]
