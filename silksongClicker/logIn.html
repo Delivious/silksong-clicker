@@ -4,16 +4,23 @@
         <link rel="stylesheet" href="styles.css">
         <title>Silksong Clicker - Log In</title>
     </head>
-    <body id="body">
+    <body id="body2">
         <h2 id="h1">Log In:</h2>
         <form id="logInForm">
-            <label class= for="username">Username:</label>
-            <input type="text" id="usernameLog" placeholder="Enter your username:" name="username"><br><br>
-            <label for="password">Password:</label>
-            <input type="password" id="passwordLog" placeholder="Enter your password:" name="password"><br><br>
-            <input type="submit" value="Log In">
+            <label class="login1" for="username"></label>
+            <input type="text" id="usernameLog" placeholder="Enter your username:" name="username" required><br><br>
+            <label class="login1" for="password"></label>
+            <input type="password" id="passwordLog" placeholder="Enter your password:" name="password" required><br><br>
+            <input id="loginBtn" type="submit" value="Log In">
         </form>
-        <h2 id="h1">Sign Up:</h2>
         <div class="clear"></div>
+        <h2 id="h1">Sign Up:</h2>
+        <form id="signUpForm">
+            <label class="signUp1" for="username"></label>
+            <input type="text" id="usernameSign" placeholder="Enter your username:" name="username" required><br><br>
+            <label class="signUp1" for="password"></label>
+            <input type="password" id="passwordSign" placeholder="Enter your password:" name="password" required><br><br>
+            <input id="signUpBtn" type="submit" value="Sign Up">
+        </form>
     </body>
 </html>
