@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "mongodb": "^7.1.0"
+  },
+  "name": "silksong-clicker",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "editor.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Delivious/silksong-clicker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Delivious/silksong-clicker/issues"
+  },
+  "homepage": "https://github.com/Delivious/silksong-clicker#readme",
+  "description": ""
+}
