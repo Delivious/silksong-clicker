@@ -59,7 +59,9 @@ let displayMenu = false
 let throwerCost = 50
 let thrower=null
 let throwerCount=0
-
+let purchase1 = false
+let purchase2 = false
+let purchase3 = false
 let sharpCost=200
 let sharp=null
 let sharpCount=0
@@ -110,6 +112,36 @@ addEventListener("keydown",(e)=>{
     e.preventDefault()
     addValue()
   }
+})
+upg1.addEventListener("click", () => {
+
+  if (roseValue >= 500 && purchase1 === false) {
+    roseValue -= 500
+    upg1.src = "mouse2.png"
+    multiplier *= 2
+    purchase1 = true
+  }
+
+  else if (roseValue >= 1000 && purchase1 === true && purchase2 === false && purchase3 === false) {
+    roseValue -= 1000
+    upg1.src = "mouse3.png"
+    multiplier *= 2
+    purchase2 = true
+  }
+
+  else if (roseValue >= 2500 && purchase1 === true && purchase2 === true && purchase3 === false) {
+    roseValue -= 2500
+    upg1.src = "mouse4.png"
+    multiplier *= 2
+    purchase3 = true
+  }
+
+  else if (roseValue >= 5000 && purchase1 === true && purchase2 === true && purchase3 === true) {
+    roseValue -= 5000
+    upg1.style.display = "none"
+    multiplier *= 2
+  }
+
 })
 upg2.addEventListener("click", () => {
   if (roseValue >= 1000) {
