@@ -296,3 +296,73 @@
     background-color: rgb(0, 0, 0);   
     color: white;
 }
+#upg5{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    float: left;
+}
+#upg5:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+#upg6{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    float: left;
+}
+#upg6:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+#upg7{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    float: left;
+}
+#upg7:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+#upg8{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    float: left;
+}
+#upg8:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+#upg9{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    float: left;
+}
+#upg9:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+#upg10{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    float: left;
+}
+#upg10:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+#upg11{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    float: left;
+}
+#upg11:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}

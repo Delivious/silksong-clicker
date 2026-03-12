@@ -9,12 +9,29 @@ const upg1Desc=document.querySelector("#upg1Desc")
 const upg2Desc=document.querySelector("#upg2Desc")
 const upg3Desc=document.querySelector("#upg3Desc")
 const upg4Desc=document.querySelector("#upg4Desc")
+const upg5Desc=document.querySelector("#upg5Desc")
+const upg6Desc=document.querySelector("#upg6Desc")
+const upg7Desc=document.querySelector("#upg7Desc")
+const upg8Desc=document.querySelector("#upg8Desc")
+const upg9Desc=document.querySelector("#upg9Desc")
+const upg10Desc=document.querySelector("#upg10Desc")
+const upg11Desc=document.querySelector("#upg11Desc")
+
 const upgradeContainer=document.querySelector("#upgradeContainer")
-const upg1 = document.querySelector("#upg1")
-const upg4 = document.querySelector("#upg4")
+
 const threefoldBtn=document.querySelector("#threefold")
 const upg2 = document.querySelector("#upg2")
+const upg1 = document.querySelector("#upg1")
+const upg4 = document.querySelector("#upg4")
 const upg3 = document.querySelector("#upg3")
+const upg5 = document.querySelector("#upg5")
+const upg6 = document.querySelector("#upg6")
+const upg7 = document.querySelector("#upg7")
+const upg8 = document.querySelector("#upg8")
+const upg9 = document.querySelector("#upg9")
+const upg10 = document.querySelector("#upg10")
+const upg11 = document.querySelector("#upg11")
+
 const btn1 = document.querySelector("#btn1")
 const btn2 = document.querySelector("#btn2")
 const btn3 = document.querySelector("#btn3")
@@ -30,8 +47,8 @@ const rebirthTree = document.querySelector("#rebirthTree")
 
 const soundList = ["assets/deeperren.mp3", "assets/gauruma.mp3", "assets/haaa.mp3", "assets/hegale.mp3", "assets/hornet_edino.mp3", "assets/hornet_gitgud.mp3", "assets/ren.mp3", "assets/shaw.mp3"]
 const btnList = [btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, hornetBtn]
-const upgList = [upg1, upg2, upg3, upg4]
-const upgChildren = [upg1Desc, upg2Desc, upg3Desc, upg4Desc]
+const upgList = [upg1, upg2, upg3, upg4, upg5, upg6, upg7, upg8, upg9, upg10, upg11]
+const upgChildren = [upg1Desc, upg2Desc, upg3Desc, upg4Desc, upg5Desc, upg6Desc, upg7Desc, upg8Desc, upg9Desc, upg10Desc, upg11Desc]
 let roseValue = 12893749812734
 let multiplier = 1
 let sharpenMultiplier = 1
