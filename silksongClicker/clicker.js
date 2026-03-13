@@ -279,7 +279,7 @@ function spawnParticles() {
   const targetX = targetRect.left + targetRect.width / 2
   const targetY = targetRect.top + targetRect.height / 2 - 40 
 
-  const particleCount = 1*multiplier
+  let particleCount = 1*multiplier
   if (particleCount>=10){
     particleCount=10
   }
