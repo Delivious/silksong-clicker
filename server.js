@@ -7,7 +7,7 @@ import dotenv from "dotenv"
 dotenv.config()
 const MONGO_URL = process.env.url
 if (!MONGO_URL) {
-  console.error("Set MONGO_URL in .env")
+  console.error("Set url in .env")
   process.exit(1)
 }
 
@@ -41,6 +41,35 @@ async function start() {
     const ok = await bcrypt.compare(password, user.password)
     if (!ok) return res.status(401).json({ error: "invalid credentials" })
     res.json({ ok: true, username: user.username })
+  })
+
+  // Load user game data
+  app.get("/api/user-data/:username", async (req, res) => {
+    const { username } = req.params
+    const user = await users.findOne({ username })
+    if (!user) return res.status(404).json({ error: "user not found" })
+    res.json({
+      roseValue: user.roseValue || 0,
+      multiplier: user.multiplier || 1,
+      throwerCount: user.throwerCount || 0,
+      sharpCount: user.sharpCount || 0,
+      threefoldCount: user.threefoldCount || 0,
+      throwerCost: user.throwerCost || 50,
+      sharpCost: user.sharpCost || 200,
+      threefoldCost: user.threefoldCost || 750
+    })
+  })
+
+  // Save user game data
+  app.post("/api/save-data", async (req, res) => {
+    const { username, gameData } = req.body
+    if (!username) return res.status(400).json({ error: "username required" })
+
+    await users.updateOne(
+      { username },
+      { $set: { ...gameData, lastSaved: new Date() } }
+    )
+    res.json({ ok: true })
   })
 
   const port = process.env.PORT || 3000

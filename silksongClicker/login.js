@@ -34,6 +34,13 @@ document.getElementById("logInForm").addEventListener("submit", async (e) => {
   const password = document.getElementById("passwordLog").value;
   const res = await postJson("/api/login", { username, password });
   const data = await res.json();
-  if (res.ok) alert("Logged in");
-  else alert(data.error || "Login failed");
+  if (res.ok) {
+    // Store session data
+    localStorage.setItem('username', data.username);
+    localStorage.setItem('loggedIn', 'true');
+    // Redirect to main game
+    window.location.href = 'index.html';
+  } else {
+    alert(data.error || "Login failed");
+  }
 });

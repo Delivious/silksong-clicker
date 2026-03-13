@@ -425,4 +425,32 @@
     color: rgba(100,100,100,0.8);
     border-radius: 5px;
     cursor: pointer;
+#saveBtn, #logoutBtn {
+    margin-top: 30px;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s;
+    display: none; /* Hidden by default, shown when logged in */
+}
+
+#saveBtn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#saveBtn:hover {
+    background-color: #45a049;
+}
+
+#logoutBtn {
+    background-color: #f44336;
+    color: white;
+}
+
+#logoutBtn:hover {
+    background-color: #da190b;
 }
