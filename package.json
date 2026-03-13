@@ -1,13 +1,19 @@
 {
-  "dependencies": {
-    "mongodb": "^7.1.0"
-  },
   "name": "silksong-clicker",
   "version": "1.0.0",
   "type": "module",
-  "main": "editor.js",
+  "main": "index.js",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "mongodb": "^7.1.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon --watch server.js --ext js --exec node server.js"
   },
   "repository": {
     "type": "git",
@@ -20,5 +26,8 @@
     "url": "https://github.com/Delivious/silksong-clicker/issues"
   },
   "homepage": "https://github.com/Delivious/silksong-clicker#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
 }

@@ -1,5 +1,12 @@
 import { MongoClient } from "mongodb"
-const url = "mongodb+srv://masoncosta31210_db_user:Delivious414@silksongclickerdb.kubcfiy.mongodb.net/?appName=SilksongClickerDB"
+import dotenv from "dotenv"
+
+dotenv.config()
+const url = process.env.url
+if (!url) {
+  console.error("Set url in .env")
+  process.exit(1)
+}
 const client = new MongoClient(url);
 const dbName = "SilksongClickerDB"
 async function run() {
