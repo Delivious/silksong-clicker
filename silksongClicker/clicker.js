@@ -21,7 +21,8 @@ const upgradeContainer=document.querySelector("#upgradeContainer")
 
 const threefoldBtn=document.querySelector("#threefold")
 const upg2 = document.querySelector("#upg2")
-const upg1 = document.querySelector("#upg1")
+const upg1 = document.getElementById("upg1");
+const upg1Img = document.querySelector("#upg1 img");
 const upg4 = document.querySelector("#upg4")
 const upg3 = document.querySelector("#upg3")
 const upg5 = document.querySelector("#upg5")
@@ -115,28 +116,28 @@ addEventListener("keydown",(e)=>{
 })
 upg1.addEventListener("click", () => {
 
-  if (roseValue >= 500 && purchase1 === false) {
+  if (roseValue >= 500 && !purchase1) {
     roseValue -= 500
-    upg1.src = "mouse2.png"
+    upg1Img.src = "assets/mouse2.png"
     multiplier *= 2
     purchase1 = true
   }
 
-  else if (roseValue >= 1000 && purchase1 === true && purchase2 === false && purchase3 === false) {
+  else if (roseValue >= 1000 && !purchase2) {
     roseValue -= 1000
-    upg1.src = "mouse3.png"
+    upg1Img.src = "assets/mouse3.png"
     multiplier *= 2
     purchase2 = true
   }
 
-  else if (roseValue >= 2500 && purchase1 === true && purchase2 === true && purchase3 === false) {
+  else if (roseValue >= 2500 && !purchase3) {
     roseValue -= 2500
-    upg1.src = "mouse4.png"
+    upg1Img.src = "assets/mouse4.png"
     multiplier *= 2
     purchase3 = true
   }
 
-  else if (roseValue >= 5000 && purchase1 === true && purchase2 === true && purchase3 === true) {
+  else if (roseValue >= 5000 && purchase3) {
     roseValue -= 5000
     upg1.style.display = "none"
     multiplier *= 2
