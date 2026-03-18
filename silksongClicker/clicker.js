@@ -1,4 +1,4 @@
-
+const rebirthBtnToRebirth = document.querySelector("#rebirthBtnToRebirth")
 const lighttool=document.querySelector("#lighttool")
 const hornetBtn = document.querySelector("#hornetBtn1")
 const hornetPara = document.querySelector("#hornetVal")
@@ -16,9 +16,10 @@ const upg8Desc=document.querySelector("#upg8Desc")
 const upg9Desc=document.querySelector("#upg9Desc")
 const upg10Desc=document.querySelector("#upg10Desc")
 const upg11Desc=document.querySelector("#upg11Desc")
-
+const bossArenaMain = document.querySelector("#bossArenaMain")
 const upgradeContainer=document.querySelector("#upgradeContainer")
-
+const bossArena = document.querySelector("#bossArena")
+const arenaBtn = document.querySelector("#arenaBtn")
 const threefoldBtn=document.querySelector("#threefold")
 const upg2 = document.querySelector("#upg2")
 const upg1 = document.getElementById("upg1");
@@ -43,7 +44,7 @@ const btn8 = document.querySelector("#btn8")
 const rebirthBtn = document.querySelector("#rebirthBtn")
 const rebirthMenu = document.querySelector("#rebirthMenu")
 const rebirthTree = document.querySelector("#rebirthTree")
-
+const character = document.querySelector("#character")
 
 const soundList = ["assets/deeperren.mp3", "assets/gauruma.mp3", "assets/haaa.mp3", "assets/hegale.mp3", "assets/hornet_edino.mp3", "assets/hornet_gitgud.mp3", "assets/ren.mp3", "assets/shaw.mp3"]
 const btnList = [btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, hornetBtn]
@@ -56,7 +57,7 @@ let distance = 0
 let hornetBtnNew = null
 let distanceX=0
 let displayMenu = false
-
+let bossHealth = 0
 let throwerCost = 50
 let thrower=null
 let throwerCount=0
@@ -74,7 +75,71 @@ let rpsSubtract = 0
 let threefoldCost = 750
 let threefold=null
 let threefoldCount=0
-
+let rebirthCount=0
+let rebirthTokens=0
+let rebirthCost=100000
+const keys = {}
+let x = 0
+let y = 0
+let moveX = 0
+let moveY = 0
+let velocityY = 0
+let onGround = true
+let left = false
+let right = true
+let moving = false
+let move = null
+let charPos = 0
+const arenaRect = bossArenaMain.getBoundingClientRect()
+const maxX = arenaRect.right 
+const minX = arenaRect.left
+function rebirth(){
+  if(roseValue >= rebirthCost){
+    roseValue-=rebirthCost
+    roseValue = 10000000
+    multiplier = 1
+    sharpenMultiplier = 1
+    distance = 0
+    if (hornetBtn) hornetBtn.style.display = "none";
+    if (hornetBtnNew) hornetBtnNew.style.display = "none";
+    hornetBtnNew = null
+    hornetBtn.style.display = "block"
+    distanceX=0
+    displayMenu = false
+    throwerCost = 50
+    thrower=null
+    throwerCount=0
+    purchase1 = false
+    purchase2 = false
+    purchase3 = false
+    upg1.style.display = "block"
+    upg1Img.src = "assets/mouse1.png"
+    upg2.style.display = "block"
+    upg3.style.display = "block"
+    upg4.style.display = "block"
+    upg5.style.display = "block"
+    upg6.style.display = "block"
+    upg7.style.display = "block"
+    upg8.style.display = "block"
+    upg9.style.display = "block"
+    upg10.style.display = "block"
+    upg11.style.display = "block"
+    sharpCost=200
+    sharp=null
+    sharpCount=0
+    rpsCounter = 0
+    rps = 0
+    rpsSubtract = 0
+    threefoldCost = 750
+    threefold=null
+    threefoldCount=0
+    rebirthCount+=1
+    rebirthTokens+=10
+    rebirthCost=rebirthCost*2.5
+    rebirthBtnToRebirth.textContent = `Rebirth for ${rebirthCost} Rosaries`
+  }
+}
+rebirthBtnToRebirth.addEventListener("click",rebirth)
 sharpen.addEventListener("click",sharpened)
 hornetBtn.addEventListener("click",addValue)
 lighttool.addEventListener("click",throwy)
@@ -87,6 +152,27 @@ btn5.addEventListener("click",addValue)
 btn6.addEventListener("click",addValue)
 btn7.addEventListener("click",addValue)
 btn8.addEventListener("click",addValue)
+document.addEventListener("keydown", (e)=>{
+  keys[e.key] = true
+})
+
+document.addEventListener("keyup", (e)=>{
+  keys[e.key] = false
+})
+arenaBtn.addEventListener("click", ()=>{
+  if (bossArena.style.display == "none"){
+    bossArena.style.display = "block"
+    bossArenaMain.style.display = "block"
+    character.style.display = "block"
+    bossFight()
+  }
+  else if(bossHealth <= 0){
+    bossArena.style.display = "none"
+    bossArenaMain.style.display = "none"
+    character.style.display = "none"
+    moving = null
+  }
+})
 rebirthBtn.addEventListener("click", () => {
   if (!displayMenu){
     rebirthMenu.style.display = "none"
@@ -176,11 +262,64 @@ function colorchange(){
   }
   
 }
+function bossFight(){
+  move = setInterval(()=>{
+
+
+  if(keys["a"]){
+    x -= moveX
+    left = true
+    right = false
+    moving = true
+  }
+  if(keys["d"]) {
+    x += moveX
+    left = false
+    left = true
+    moving = true
+  }
+
+
+  if(keys["w"] && onGround){
+    velocityY = -20
+    onGround = false
+  }
+
+  velocityY += 1
+  y += velocityY
+
+  if(y > 0){
+    y = 0
+    velocityY = 0
+    onGround = true
+  }
+  if (moving == true){
+    moveX+=1
+    if (moveX >= 4){
+      moveX = 4
+    }
+    
+  }
+  else
+    moveX-=1
+    if (moveX <= 0){
+      moveX = 0
+    }
+  character.style.transform = `translate(${x}px, ${y}px)`
+
+  },16)
+}
+
 function addValue(){
   // spawn before we hide/swap the button so particles originate from
   // the image the user actually clicked
   spawnParticles()
-  roseValue+=multiplier
+  if (rebirthCount == 0){
+    roseValue+=multiplier 
+  }
+  else{
+   roseValue+=multiplier * rebirthCount
+  }
   hornetPara.textContent = `Rosaries: ${roseValue}`
   setTimeout(() =>{
       hornetBtn.style.transform="scale(1.16)"
@@ -260,6 +399,7 @@ function addValue(){
   if (hornetBtnNew != null){
     hornetBtnNew.style.display = "none"
   }
+  
   hornetBtn.style.display = "none"
   randomBtn = Math.floor(Math.random() * btnList.length)
   hornetBtnNew = btnList[randomBtn]
