@@ -275,10 +275,10 @@ function spawnParticles() {
   const btnRect = activeButton.getBoundingClientRect()
   const targetRect = hornetPara.getBoundingClientRect()
 
-  const startX = btnRect.left + btnRect.width / 2
-  const startY = btnRect.top + btnRect.height / 2
-  const targetX = targetRect.left + targetRect.width / 2
-  const targetY = targetRect.top + targetRect.height / 2 - 40 
+  const startX = btnRect.left + window.scrollX + btnRect.width / 2
+  const startY = btnRect.top + window.scrollY + btnRect.height / 2
+  const targetX = targetRect.left + window.scrollX + targetRect.width / 2
+  const targetY = targetRect.top + window.scrollY + targetRect.height / 2 - 50
 
   let particleCount = 1*multiplier
   if (particleCount>=10){
@@ -306,7 +306,7 @@ function spawnParticles() {
       top: `${jitterStartY}px`,
       width: '28px',
       height: '28px',
-      transform: 'translate(-50%,-50%) scale(1)',
+      transform: `translate(0,0) scale(1)`,
       transition: `left ${duration}ms cubic-bezier(.2,.9,.2,1), top ${duration}ms cubic-bezier(.2,.9,.2,1), transform ${duration}ms linear, opacity ${duration}ms linear`,
       zIndex: 9999,
       pointerEvents: 'none',
@@ -321,7 +321,7 @@ function spawnParticles() {
       particle.style.left = `${targetX + jitterEndX}px`
       particle.style.top = `${targetY + jitterEndY}px`
       // shrink & fade as it arrives
-      particle.style.transform = 'translate(-50%,-50%) scale(0.4)'
+      particle.style.transform = `translate(${targetX},${targetY}) scale(0.4)`
       particle.style.opacity = '0'
     })
 
