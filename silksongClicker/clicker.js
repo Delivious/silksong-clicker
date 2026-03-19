@@ -1,4 +1,8 @@
 const rebirthBtnToRebirth = document.querySelector("#rebirthBtnToRebirth")
+const skill1 = document.querySelector("#skill1")
+const skill2 = document.querySelector("#skill2")
+const skill3 = document.querySelector("#skill3")
+const skill4 = document.querySelector("#skill4")
 const lighttool=document.querySelector("#lighttool")
 const hornetBtn = document.querySelector("#hornetBtn1")
 const hornetPara = document.querySelector("#hornetVal")
@@ -67,20 +71,29 @@ let purchase3 = false
 let sharpCost=200
 let sharp=null
 let sharpCount=0
-
+let bought1 = false
+let bought2 = false
+let bought3 = false
+let bought4 = false
 let rpsCounter = 0
 let rps = 0
 let rpsSubtract = 0
-
+let skill1Cost = 3
+let skill2Cost = 5
+let skill3Cost = 5
+let skill4Cost = 7
 let threefoldCost = 750
 let threefold=null
 let threefoldCount=0
+let rebirthMultiplier = 1
 let rebirthCount=0
 let rebirthTokens=0
 let rebirthCost=100000
 const keys = {}
 let x = 0
 let y = 0
+let rpsPercent = 0
+let rpsRebirth = 0
 let moveX = 0
 let moveY = 0
 let velocityY = 0
@@ -129,6 +142,7 @@ function rebirth(){
     sharpCount=0
     rpsCounter = 0
     rps = 0
+    rpsPercent = 0
     rpsSubtract = 0
     threefoldCost = 750
     threefold=null
@@ -137,6 +151,9 @@ function rebirth(){
     rebirthTokens+=10
     rebirthCost=rebirthCost*2.5
     rebirthBtnToRebirth.textContent = `Rebirth for ${rebirthCost} Rosaries`
+    sharpen.textContent = `Get your Nail to slash attack the button for ${5*sharpenMultiplier} Rosaries a second! Cost: ${sharpCost} Rosaries`
+    lighttool.textContent = `Get a Light Throwing Tool that gets you 1 Rosarie per second! Cost: ${throwerCost} Rosaries`
+    threefoldBtn.textContent = `Get your Threefold Pin and throw pins at the button for 15 Rosaries a second! Cost: ${threefoldCost} Rosaries`
   }
 }
 rebirthBtnToRebirth.addEventListener("click",rebirth)
@@ -152,6 +169,41 @@ btn5.addEventListener("click",addValue)
 btn6.addEventListener("click",addValue)
 btn7.addEventListener("click",addValue)
 btn8.addEventListener("click",addValue)
+setInterval(()=>{
+  hornetPara.textContent =  `Rosaries: ${roseValue}`
+},100)
+skill1.addEventListener("click",()=>{
+  if(rebirthTokens>=skill1Cost){
+    rebirthTokens-=skill1Cost
+    rebirthMultiplier=rebirthMultiplier*2
+    bought1 = true
+    skill1.style.backgroundColor = "green"
+  }
+})
+skill2.addEventListener("click",()=>{
+  if(rebirthTokens>=skill2Cost){
+    rebirthTokens-=skill2Cost
+    rebirthMultiplier=rebirthMultiplier*2
+    bought2 = true
+    skill2.style.backgroundColor = "green"
+  }
+})
+skill3.addEventListener("click",()=>{
+  if(rebirthTokens>=skill3Cost){
+    rebirthTokens-=skill3Cost
+    rpsRebirth+=0.01
+    bought3 = true
+    skill3.style.backgroundColor = "green"
+  }
+})
+skill4.addEventListener("click",()=>{
+  if(rebirthTokens>=skill4Cost){
+    rebirthTokens-=skill4Cost
+    rebirthMultiplier=rebirthMultiplier*2
+    bought4 = true
+    skill4.style.backgroundColor = "green"
+  }
+})
 document.addEventListener("keydown", (e)=>{
   keys[e.key] = true
 })
@@ -160,7 +212,8 @@ document.addEventListener("keyup", (e)=>{
   keys[e.key] = false
 })
 arenaBtn.addEventListener("click", ()=>{
-  if (bossArena.style.display == "none"){
+  const display = getComputedStyle(bossArena).display
+  if (display == "none"){
     bossArena.style.display = "block"
     bossArenaMain.style.display = "block"
     character.style.display = "block"
@@ -170,19 +223,18 @@ arenaBtn.addEventListener("click", ()=>{
     bossArena.style.display = "none"
     bossArenaMain.style.display = "none"
     character.style.display = "none"
-    moving = null
+    clearInterval(move)
   }
 })
 rebirthBtn.addEventListener("click", () => {
-  if (!displayMenu){
-    rebirthMenu.style.display = "none"
-    rebirthTree.style.display = "none"
-    displayMenu = true
-  } 
-  else {
+  const displayMenu = (getComputedStyle(rebirthMenu).display == "none")
+  if (displayMenu){
     rebirthMenu.style.display = "flex"
     rebirthTree.style.display = "flex"
-    displayMenu = false
+  } 
+  else {
+    rebirthMenu.style.display = "none"
+    rebirthTree.style.display = "none"
   }
 })
 upgList.forEach((el, idx) => {
@@ -250,9 +302,6 @@ setInterval(()=>{
   rpsText.textContent=`Your RPS is: ${rps}`
   rps=0
 },1000)
-setInterval(()=>{
-  hornetPara.textContent = `Rosaries: ${roseValue}`
-})
 function colorchange(){
   if (body.style.backgroundColor!="black"){
     body.style.backgroundColor="black"
@@ -315,10 +364,10 @@ function addValue(){
   // the image the user actually clicked
   spawnParticles()
   if (rebirthCount == 0){
-    roseValue+=multiplier 
+    roseValue+=multiplier*rebirthMultiplier + Math.floor(((rpsRebirth + rpsPercent) * rps))
   }
   else{
-   roseValue+=multiplier * rebirthCount
+   roseValue+=multiplier * rebirthMultiplier + Math.floor(((rpsRebirth + rpsPercent) * rps))
   }
   hornetPara.textContent = `Rosaries: ${roseValue}`
   setTimeout(() =>{

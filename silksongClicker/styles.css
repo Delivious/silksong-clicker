@@ -288,10 +288,10 @@
 }
 #rebirthTree{
     position: fixed;
-    top: 25%;
+    top: 15%;
     left: 25%;
     width: 50%;
-    height: 50%;
+    height: 65%;
     background-color: rgba(0, 0, 0, 0.8);
     display: none;
     justify-content: center;
@@ -501,4 +501,76 @@
   font-size: 200%;
   display: none;
   z-index: 100002;
+}
+#skill1{
+  position:fixed;
+  top: 65%;
+  right: 48%;
+  width: 45px;
+  height: 45px;
+  background-color: maroon;
+  cursor: pointer;
+  border-radius: 5%;
+  z-index: 10001;
+}
+#skill2{
+  position:fixed;
+  top: 55%;
+  right: 42%;
+  width: 45px;
+  height: 45px;
+  background-color: maroon;
+  cursor: pointer;
+  border-radius: 5%;
+  z-index: 10001;
+}
+#skill3{
+  position:fixed;
+  top: 55%;
+  right: 55%;
+  width: 45px;
+  height: 45px;
+  background-color: maroon;
+  cursor: pointer;
+  border-radius: 5%;
+  z-index: 10001;
+}
+.line{
+  width: 5px;
+  height: 100px;
+  background-color: white;
+  z-index: 10000;
+
+}
+#line1{
+  position: fixed;
+  top: 55%;
+  right: 53%;
+  transform: rotate(-50deg);
+  z-index: 10000;
+}
+#line2{
+  position: fixed;
+  top: 55%;
+  right: 46%;
+  transform: rotate(50deg);
+  z-index: 10000;
+}
+#skill4{
+  position:fixed;
+  top: 45%;
+  right: 60%;
+  width: 45px;
+  height: 45px;
+  background-color: maroon;
+  cursor: pointer;
+  border-radius: 5%;
+  z-index: 10001;
+}
+#line3{
+  position: fixed;
+  top: 45%;
+  right: 58.5%;
+  transform: rotate(-50deg);
+  z-index: 10000;
 }
