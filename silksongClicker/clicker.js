@@ -57,7 +57,7 @@ const upgList = [upg1, upg2, upg3, upg4, upg5, upg6, upg7, upg8, upg9, upg10, up
 const upgChildren = [upg1Desc, upg2Desc, upg3Desc, upg4Desc, upg5Desc, upg6Desc, upg7Desc, upg8Desc, upg9Desc, upg10Desc, upg11Desc]
 const skillList = [skill1, skill2, skill3, skill4]
 const skillChildren = [skill1Desc, skill2Desc, skill3Desc, skill4Desc]
-let roseValue = 10000000
+let roseValue = 0
 let multiplier = 1
 let sharpenMultiplier = 1
 let distance = 0
@@ -113,7 +113,7 @@ const minX = arenaRect.left
 function rebirth(){
   if(roseValue >= rebirthCost){
     roseValue-=rebirthCost
-    roseValue = 10000000
+    roseValue = 0
     multiplier = 1
     sharpenMultiplier = 1
     distance = 0
