@@ -57,7 +57,7 @@ const upgList = [upg1, upg2, upg3, upg4, upg5, upg6, upg7, upg8, upg9, upg10, up
 const upgChildren = [upg1Desc, upg2Desc, upg3Desc, upg4Desc, upg5Desc, upg6Desc, upg7Desc, upg8Desc, upg9Desc, upg10Desc, upg11Desc]
 const skillList = [skill1, skill2, skill3, skill4]
 const skillChildren = [skill1Desc, skill2Desc, skill3Desc, skill4Desc]
-let roseValue = 0
+let roseValue = 100000000000
 let multiplier = 1
 let sharpenMultiplier = 1
 let distance = 0
@@ -113,7 +113,7 @@ const minX = arenaRect.left
 function rebirth(){
   if(roseValue >= rebirthCost){
     roseValue-=rebirthCost
-    roseValue = 0
+    roseValue = 100000000000
     multiplier = 1
     sharpenMultiplier = 1
     distance = 0
@@ -178,34 +178,43 @@ setInterval(()=>{
 },100)
 skill1.addEventListener("click",()=>{
   if(rebirthTokens>=skill1Cost){
-    rebirthTokens-=skill1Cost
-    rebirthMultiplier=rebirthMultiplier*2
-    bought1 = true
-    skill1.style.backgroundColor = "green"
+    if(!bought1){  
+      rebirthTokens-=skill1Cost
+      rebirthMultiplier=rebirthMultiplier*2
+      bought1 = true
+      skill1.style.backgroundColor = "green"
+    }
   }
 })
 skill2.addEventListener("click",()=>{
   if(rebirthTokens>=skill2Cost && bought1){
-    rebirthTokens-=skill2Cost
-    rebirthMultiplier=rebirthMultiplier*2
-    bought2 = true
-    skill2.style.backgroundColor = "green"
+  if(!bought2){   
+      rebirthTokens-=skill2Cost
+      rebirthMultiplier=rebirthMultiplier*2
+      bought2 = true
+      skill2.style.backgroundColor = "green"
+    }
   }
 })
 skill3.addEventListener("click",()=>{
   if(rebirthTokens>=skill3Cost && bought1){
-    rebirthTokens-=skill3Cost
-    rpsRebirth+=0.01
-    bought3 = true
-    skill3.style.backgroundColor = "green"
+    if(!bought3){  
+      rebirthTokens-=skill3Cost
+      rpsRebirth+=0.01
+      bought3 = true
+      skill3.style.backgroundColor = "green"
+    }
   }
 })
 skill4.addEventListener("click",()=>{
   if(rebirthTokens>=skill4Cost && bought3){
-    rebirthTokens-=skill4Cost
-    rebirthMultiplier=rebirthMultiplier*2
-    bought4 = true
-    skill4.style.backgroundColor = "green"
+    if (!bought4){
+      rebirthTokens-=skill4Cost
+      rebirthMultiplier=rebirthMultiplier*2
+      bought4 = true
+      skill4.style.backgroundColor = "green"
+  
+    }  
   }
 })
 document.addEventListener("keydown", (e)=>{
