@@ -3,6 +3,7 @@ const skill1 = document.querySelector("#skill1")
 const skill2 = document.querySelector("#skill2")
 const skill3 = document.querySelector("#skill3")
 const skill4 = document.querySelector("#skill4")
+const rebirthTokensText = document.querySelector("#rebirthTokensText")
 const lighttool=document.querySelector("#lighttool")
 const hornetBtn = document.querySelector("#hornetBtn1")
 const hornetPara = document.querySelector("#hornetVal")
@@ -54,6 +55,8 @@ const soundList = ["assets/deeperren.mp3", "assets/gauruma.mp3", "assets/haaa.mp
 const btnList = [btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, hornetBtn]
 const upgList = [upg1, upg2, upg3, upg4, upg5, upg6, upg7, upg8, upg9, upg10, upg11]
 const upgChildren = [upg1Desc, upg2Desc, upg3Desc, upg4Desc, upg5Desc, upg6Desc, upg7Desc, upg8Desc, upg9Desc, upg10Desc, upg11Desc]
+const skillList = [skill1, skill2, skill3, skill4]
+const skillChildren = [skill1Desc, skill2Desc, skill3Desc, skill4Desc]
 let roseValue = 10000000
 let multiplier = 1
 let sharpenMultiplier = 1
@@ -103,6 +106,7 @@ let right = true
 let moving = false
 let move = null
 let charPos = 0
+let rpsPrevious = 0
 const arenaRect = bossArenaMain.getBoundingClientRect()
 const maxX = arenaRect.right 
 const minX = arenaRect.left
@@ -181,7 +185,7 @@ skill1.addEventListener("click",()=>{
   }
 })
 skill2.addEventListener("click",()=>{
-  if(rebirthTokens>=skill2Cost){
+  if(rebirthTokens>=skill2Cost && bought1){
     rebirthTokens-=skill2Cost
     rebirthMultiplier=rebirthMultiplier*2
     bought2 = true
@@ -189,7 +193,7 @@ skill2.addEventListener("click",()=>{
   }
 })
 skill3.addEventListener("click",()=>{
-  if(rebirthTokens>=skill3Cost){
+  if(rebirthTokens>=skill3Cost && bought1){
     rebirthTokens-=skill3Cost
     rpsRebirth+=0.01
     bought3 = true
@@ -197,7 +201,7 @@ skill3.addEventListener("click",()=>{
   }
 })
 skill4.addEventListener("click",()=>{
-  if(rebirthTokens>=skill4Cost){
+  if(rebirthTokens>=skill4Cost && bought3){
     rebirthTokens-=skill4Cost
     rebirthMultiplier=rebirthMultiplier*2
     bought4 = true
@@ -231,10 +235,14 @@ rebirthBtn.addEventListener("click", () => {
   if (displayMenu){
     rebirthMenu.style.display = "flex"
     rebirthTree.style.display = "flex"
+    rebirtheTokenInt = setInterval(()=>{
+      rebirthTokensText.textContent = `Rebirth Tokens: ${rebirthTokens}`
+    },100)
   } 
   else {
     rebirthMenu.style.display = "none"
     rebirthTree.style.display = "none"
+    clearInterval(rebirthTokenInt)
   }
 })
 upgList.forEach((el, idx) => {
@@ -244,6 +252,15 @@ upgList.forEach((el, idx) => {
   })
   el.addEventListener('mouseleave', () => {
     upgChildren[idx].style.display = 'none'
+  })
+})
+skillList.forEach((el, idx) => {
+  if (!el) return
+  el.addEventListener('mouseenter', () => {
+    skillChildren[idx].style.display = 'block'
+  })
+  el.addEventListener('mouseleave', () => {
+    skillChildren[idx].style.display = 'none'
   })
 })
 addEventListener("keydown",(e)=>{
@@ -300,6 +317,7 @@ upg4.addEventListener("click", () => {
 })
 setInterval(()=>{
   rpsText.textContent=`Your RPS is: ${rps}`
+  rpsPrevious = rps
   rps=0
 },1000)
 function colorchange(){
@@ -364,10 +382,10 @@ function addValue(){
   // the image the user actually clicked
   spawnParticles()
   if (rebirthCount == 0){
-    roseValue+=multiplier*rebirthMultiplier + Math.floor(((rpsRebirth + rpsPercent) * rps))
+    roseValue+=multiplier*rebirthMultiplier + Math.floor(((rpsRebirth + rpsPercent) * rpsPrevious))
   }
   else{
-   roseValue+=multiplier * rebirthMultiplier + Math.floor(((rpsRebirth + rpsPercent) * rps))
+   roseValue+=multiplier * rebirthMultiplier + Math.floor(((rpsRebirth + rpsPercent) * rpsPrevious))
   }
   hornetPara.textContent = `Rosaries: ${roseValue}`
   setTimeout(() =>{

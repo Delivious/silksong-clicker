@@ -574,3 +574,24 @@
   transform: rotate(-50deg);
   z-index: 10000;
 }
+#rebirthTokensText{
+  position: fixed;
+  top: 5%;
+  right: 80%;
+}
+.skillDesc{
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: -220px;
+    width: 150px;
+    height: 150px;
+    max-width: 200px;
+    color: white;
+    font-style: italic;
+    background-color: rgba(25, 25, 25, 1);
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid white;
+    z-index: 100000;
+}
