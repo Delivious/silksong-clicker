@@ -7,6 +7,7 @@ const rebirthTokensText = document.querySelector("#rebirthTokensText")
 const lighttool=document.querySelector("#lighttool")
 const hornetBtn = document.querySelector("#hornetBtn1")
 const hornetPara = document.querySelector("#hornetVal")
+const paleOil = document.querySelector("#paleOil")
 const sharpen=document.querySelector("#sharpen")
 const rpsText=document.querySelector("#rps")
 const body=document.querySelector("#body")
@@ -80,6 +81,8 @@ let bought3 = false
 let bought4 = false
 let rpsCounter = 0
 let rps = 0
+let paleOilCost = 3000
+let paleOilCount = 0
 let rpsSubtract = 0
 let skill1Cost = 3
 let skill2Cost = 5
@@ -153,11 +156,19 @@ function rebirth(){
     threefoldCount=0
     rebirthCount+=1
     rebirthTokens+=10
+    clearInterval(thrower)
+    paleOilCost = 3000
+    paleOilCount = 0
+    clearInterval(sharp)
+    clearInterval(threefold)
     rebirthCost=rebirthCost*2.5
     rebirthBtnToRebirth.textContent = `Rebirth for ${rebirthCost} Rosaries`
     sharpen.textContent = `Get your Nail to slash attack the button for ${5*sharpenMultiplier} Rosaries a second! Cost: ${sharpCost} Rosaries`
     lighttool.textContent = `Get a Light Throwing Tool that gets you 1 Rosarie per second! Cost: ${throwerCost} Rosaries`
     threefoldBtn.textContent = `Get your Threefold Pin and throw pins at the button for 15 Rosaries a second! Cost: ${threefoldCost} Rosaries`
+    if (rebirthCount >= 1){
+      paleOil.style.display = "block"
+    }
   }
 }
 rebirthBtnToRebirth.addEventListener("click",rebirth)
@@ -165,6 +176,7 @@ sharpen.addEventListener("click",sharpened)
 hornetBtn.addEventListener("click",addValue)
 lighttool.addEventListener("click",throwy)
 threefoldBtn.addEventListener("click",threefoldfunc)
+paleOil.addEventListener("click",paleOilFunc)
 btn1.addEventListener("click",addValue)
 btn2.addEventListener("click",addValue)
 btn3.addEventListener("click",addValue)
@@ -554,8 +566,8 @@ function throwy(){
 
     if(!thrower){
       thrower = setInterval(() =>{
-        roseValue += throwerCount
-        rps += throwerCount
+        roseValue += throwerCount + (paleOilCount * 3)
+        rps += throwerCount + (paleOilCount * 3)
       },1000)
     }
 
@@ -573,8 +585,8 @@ function sharpened(){
 
     if(!sharp){
       sharp = setInterval(() =>{
-        roseValue += (1*sharpCount)*sharpenMultiplier
-        rps += (1*sharpCount)*sharpenMultiplier
+        roseValue += (1*sharpCount) * sharpenMultiplier + (paleOilCount * 3)
+        rps += (1*sharpCount)*sharpenMultiplier + (paleOilCount * 3)
       },200)
     }
 
@@ -591,8 +603,8 @@ function threefoldfunc(){
 
     if(!threefold){
       threefold = setInterval(() =>{
-        roseValue += 3*threefoldCount
-        rps += 3*threefoldCount
+        roseValue += 3*threefoldCount + (paleOilCount * 3)
+        rps += 3*threefoldCount + (paleOilCount * 3)
       },200)
     }
 
@@ -601,5 +613,14 @@ function threefoldfunc(){
     threefoldCost = Math.trunc(threefoldCost * 1.1)
 
     threefoldBtn.textContent = `Get your Threefold Pin and throw pins at the button for 15 Rosaries a second! Cost: ${threefoldCost} Rosaries`
+  }
+}
+function paleOilFunc(){
+  if (roseValue >= paleOilCost){
+    paleOilCount += 1
+    roseValue -= paleOilCost
+    paleOilCost = Math.trunc(paleOilCost * 1.65)
+
+    paleOil.textContent = `Get your Pale Oil to *BUFF* every one of your tools by +3 Rosaries! Cost: ${paleOilCost} Rosaries`
   }
 }
