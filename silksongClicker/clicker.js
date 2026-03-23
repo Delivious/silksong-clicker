@@ -51,7 +51,6 @@ const rebirthBtn = document.querySelector("#rebirthBtn")
 const rebirthMenu = document.querySelector("#rebirthMenu")
 const rebirthTree = document.querySelector("#rebirthTree")
 const character = document.querySelector("#character")
-
 const soundList = ["assets/deeperren.mp3", "assets/gauruma.mp3", "assets/haaa.mp3", "assets/hegale.mp3", "assets/hornet_edino.mp3", "assets/hornet_gitgud.mp3", "assets/ren.mp3", "assets/shaw.mp3"]
 const btnList = [btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, hornetBtn]
 const upgList = [upg1, upg2, upg3, upg4, upg5, upg6, upg7, upg8, upg9, upg10, upg11]
@@ -363,11 +362,16 @@ function bossFight(){
   if(keys["d"]) {
     x += moveX
     left = false
-    left = true
+    right = true
     moving = true
   }
 
-
+  if (keys["e"]){
+    character.style.transform = `translate(${x}px, ${y}px) scale(1.5)`
+    setTimeout(() => {
+      character.style.transform = `translate(${x}px, ${y}px) scale(1)`
+    }, 500);
+  }
   if(keys["w"] && onGround){
     velocityY = -20
     onGround = false
@@ -393,7 +397,7 @@ function bossFight(){
     if (moveX <= 0){
       moveX = 0
     }
-  character.style.transform = `translate(${x}px, ${y}px)`
+  character.style.transform = `translate(${x}px, ${y}px)`                                                              
 
   },16)
 }
