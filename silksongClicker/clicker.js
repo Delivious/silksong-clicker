@@ -48,12 +48,13 @@ const btn5 = document.querySelector("#btn5")
 const btn6 = document.querySelector("#btn6")
 const btn7 = document.querySelector("#btn7")
 const btn8 = document.querySelector("#btn8")
+const btn9 = document.querySelector("#btn9")
 const rebirthBtn = document.querySelector("#rebirthBtn")
 const rebirthMenu = document.querySelector("#rebirthMenu")
 const rebirthTree = document.querySelector("#rebirthTree")
 const character = document.querySelector("#character")
 const soundList = ["assets/deeperren.mp3", "assets/gauruma.mp3", "assets/haaa.mp3", "assets/hegale.mp3", "assets/hornet_edino.mp3", "assets/hornet_gitgud.mp3", "assets/ren.mp3", "assets/shaw.mp3"]
-const btnList = [btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, hornetBtn]
+const btnList = [btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, hornetBtn, btn9]
 const upgList = [upg1, upg2, upg3, upg4, upg5, upg6, upg7, upg8, upg9, upg10, upg11]
 const upgChildren = [upg1Desc, upg2Desc, upg3Desc, upg4Desc, upg5Desc, upg6Desc, upg7Desc, upg8Desc, upg9Desc, upg10Desc, upg11Desc]
 const skillList = [skill1, skill2, skill3, skill4]
@@ -218,6 +219,7 @@ btn5.addEventListener("click",addValue)
 btn6.addEventListener("click",addValue)
 btn7.addEventListener("click",addValue)
 btn8.addEventListener("click",addValue)
+btn9.addEventListener("click",addValue)
 setInterval(()=>{
   hornetPara.textContent =  `Rosaries: ${roseValue}`
 },100)

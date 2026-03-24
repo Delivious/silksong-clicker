@@ -206,6 +206,14 @@
     transform-origin: center;
     transition: transform 0.06s ease-out;
 }
+#btn9{
+    display: none;
+    float: left;
+    margin: 30px;
+    margin-left: 43%;
+    transform-origin: center;
+    transition: transform 0.06s ease-out;
+}
 #upgradeContainer{
     position: fixed;
     top: -20px;
