@@ -71,6 +71,8 @@ let throwerCount=0
 let purchase1 = false
 let purchase2 = false
 let purchase3 = false
+let purchase4 = false
+let purchase5 = false
 let sharpCost=200
 let sharp=null
 let sharpCount=0
@@ -108,6 +110,7 @@ let right = true
 let moving = false
 let move = null
 let charPos = 0
+let clickcost=500
 let rpsPrevious = 0
 const arenaRect = bossArenaMain.getBoundingClientRect()
 const maxX = arenaRect.right 
@@ -291,29 +294,47 @@ addEventListener("keydown",(e)=>{
 })
 upg1.addEventListener("click", () => {
 
-  if (roseValue >= 500 && !purchase1) {
-    roseValue -= 500
+  if (roseValue >= clickcost && !purchase1) {
+    roseValue -= clickcost
     upg1Img.src = "assets/mouse2.png"
     multiplier *= 2
     purchase1 = true
+    clickcost *=2
   }
 
-  else if (roseValue >= 1000 && !purchase2) {
-    roseValue -= 1000
+  else if (roseValue >= clickcost && !purchase2) {
+    roseValue -= clickcost
     upg1Img.src = "assets/mouse3.png"
     multiplier *= 2
     purchase2 = true
+    clickcost *=2
   }
 
-  else if (roseValue >= 2500 && !purchase3) {
-    roseValue -= 2500
+  else if (roseValue >= clickcost && !purchase3) {
+    roseValue -= clickcost
     upg1Img.src = "assets/mouse4.png"
     multiplier *= 2
     purchase3 = true
+    clickcost *=2
   }
 
-  else if (roseValue >= 5000 && purchase3) {
-    roseValue -= 5000
+  else if (roseValue >= clickcost && !purchase4) {
+    roseValue -= clickcost
+    upg1Img.src = "assets/mouse5.png"
+    multiplier *= 2
+    purchase4 = true
+    clickcost *=2
+  }
+  else if (roseValue >= clickcost && !purchase5) {
+    roseValue -= clickcost
+    upg1Img.src = "assets/mouse6.png"
+    multiplier *= 2
+    purchase5 = true
+    clickcost *=2
+  }
+
+  else if (roseValue >= clickcost && purchase5) {
+    roseValue -= clickcost
     upg1.style.display = "none"
     multiplier *= 2
   }
