@@ -11,6 +11,7 @@ const paleOil = document.querySelector("#paleOil")
 const sharpen=document.querySelector("#sharpen")
 const rpsText=document.querySelector("#rps")
 const body=document.querySelector("#body")
+const modeForm = document.querySelector("#modeForm")
 const upg1Desc=document.querySelector("#upg1Desc")
 const upg2Desc=document.querySelector("#upg2Desc")
 const upg3Desc=document.querySelector("#upg3Desc")
@@ -106,8 +107,30 @@ let onGround = true
 let left = false
 let right = true
 let moving = false
+let noiseMode = false
 let move = null
 let charPos = 0
+let lofiBeat = null
+let canPlay = true
+document.addEventListener("mousedown",()=>{
+  if (canPlay){
+    canPlay=false
+    setTimeout(()=>{
+      lofiBeat = (new Audio("assets/silkMusic.mp3")).play()
+    },1)
+  }
+  setInterval(()=>{
+      if (canPlay){
+        canPlay=false
+        setTimeout(()=>{
+          lofiBeat = (new Audio("assets/silkMusic.mp3")).play()
+        },1)
+        setTimeout(()=>{
+          canPlay=true
+        },158000)
+      }
+  },158000)
+})
 let rpsPrevious = 0
 const arenaRect = bossArenaMain.getBoundingClientRect()
 const maxX = arenaRect.right 
@@ -176,6 +199,14 @@ hornetBtn.addEventListener("click",addValue)
 lighttool.addEventListener("click",throwy)
 threefoldBtn.addEventListener("click",threefoldfunc)
 paleOil.addEventListener("click",paleOilFunc)
+modeForm.addEventListener("change",(c)=>{
+  if (c.target.value == "ButtonNoise"){
+    noiseMode=true
+  }
+  else{
+    noiseMode=false
+  }
+})
 btn1.addEventListener("click",addValue)
 btn2.addEventListener("click",addValue)
 btn3.addEventListener("click",addValue)
@@ -496,10 +527,11 @@ function addValue(){
   randomBtn = Math.floor(Math.random() * btnList.length)
   hornetBtnNew = btnList[randomBtn]
   hornetBtnNew.style.display = "block"
-  randomHorn = soundList[Math.floor(Math.random()*(soundList.length))]
-  audioHorn = new Audio(src=randomHorn)
-  audioHorn.play()
-
+  if (noiseMode){
+    randomHorn = soundList[Math.floor(Math.random()*(soundList.length))]
+    audioHorn = new Audio(src=randomHorn)
+    audioHorn.play()
+  }
 }
 
 function spawnParticles() {
