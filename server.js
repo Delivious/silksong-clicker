@@ -29,7 +29,7 @@ async function start() {
     const existing = await users.findOne({ username })
     if (existing) return res.status(409).json({ error: "user exists" })
     const hash = await bcrypt.hash(password, 10)
-    await users.insertOne({ username, password: hash, createdAt: new Date() })
+    await users.insertOne({ username, password: hash, createdAt: new Date(), saveData: {} })
     res.json({ ok: true })
   })
 
@@ -43,9 +43,33 @@ async function start() {
     res.json({ ok: true, username: user.username })
   })
 
+  app.post("/api/save", async (req, res) => {
+    const { username, data } = req.body
+
+    if (!username || !data) {
+      return res.status(400).json({ error: "missing data" })
+    }
+
+    await users.updateOne(
+      { username },
+      { $set: { saveData: data, lastSaved: new Date() } }
+    )
+
+    res.json({ ok: true })
+  })
+
+  app.post("/api/load", async (req, res) => {
+    const { username } = req.body
+
+    const user = await users.findOne({ username })
+    if (!user) return res.status(404).json({ error: "user not found" })
+
+    res.json({ saveData: user.saveData || {} })
+  })
   const port = process.env.PORT || 3000
   app.listen(port, () => console.log("Server listening on", port))
 }
+  
 
 start().catch((err) => {
   console.error("Startup error:", err)

@@ -298,7 +298,7 @@
 #rebirthBtn{
     position: fixed;
     top: 0px;
-    right: 95%;
+    left: 0px;
     background-color: rgba(130, 130, 130, 0.2);
     border: none;
     color: black;
@@ -306,6 +306,7 @@
     border-radius: 5px;
     cursor: pointer;
     z-index: 100001;
+    height: 11%;
 }
 #rebirthTree{
     position: fixed;
@@ -394,12 +395,11 @@
 #createUserAndLogin{
     position: fixed;
     top: 0px;
-    right: 87%;
+    left: 125px;
     background-color: rgba(130, 130, 130, 0.2);
     border: none;
     color: black;
-    width: 7.5%;
-    height: 3.8%;
+    height: 11%;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
@@ -505,7 +505,7 @@
 #arenaBtn{
     position: fixed;
     top: 0px;
-    right: 75%;
+    left: 250px;
     background-color: rgba(130, 130, 130, 0.2);
     border: none;
     color: black;
@@ -513,6 +513,7 @@
     border-radius: 5px;
     cursor: pointer;
     z-index: 100001;
+    height: 11%;
 }
 #character{
   color: white;
@@ -622,6 +623,19 @@
 }
 #modeForm{
     position: fixed;
-    top: 10%;
+    top: 15%;
     left: 0%;
+}
+#backToHome{
+    position: fixed;
+    top: 0px;
+    left: 250px;
+    background-color: rgba(130, 130, 130, 0.2);
+    border: none;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 100001;
+    height: 11%;
 }
