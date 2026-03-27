@@ -405,57 +405,88 @@ function colorchange(){
   }
   
 }
+let currentSprite = "";
+
+// prevents reloading same image every frame
+function setSprite(src){
+  if(currentSprite !== src){
+    character.src = src;
+    currentSprite = src;
+  }
+}
+
 function bossFight(){
   move = setInterval(()=>{
 
+    moving = false; // reset every frame
 
-  if(keys["a"]){
-    x -= moveX
-    left = true
-    right = false
-    moving = true
-  }
-  if(keys["d"]) {
-    x += moveX
-    left = false
-    right = true
-    moving = true
-  }
-
-  if (keys["e"]){
-    character.style.transform = `translate(${x}px, ${y}px) scale(1.5)`
-    setTimeout(() => {
-      character.style.transform = `translate(${x}px, ${y}px) scale(1)`
-    }, 500);
-  }
-  if(keys["w"] && onGround){
-    velocityY = -20
-    onGround = false
-  }
-
-  velocityY += 1
-  y += velocityY
-
-  if(y > 0){
-    y = 0
-    velocityY = 0
-    onGround = true
-  }
-  if (moving == true){
-    moveX+=1
-    if (moveX >= 4){
-      moveX = 4
+    if(keys["a"]){
+      x -= moveX;
+      left = true;
+      right = false;
+      moving = true;
     }
-    
-  }
-  else
-    moveX-=1
-    if (moveX <= 0){
-      moveX = 0
-    }
-  character.style.transform = `translate(${x}px, ${y}px)`                                                              
 
-  },16)
+    if(keys["d"]) {
+      x += moveX;
+      left = false;
+      right = true;
+      moving = true;
+    }
+
+    if (keys["e"]){
+      character.style.transform = `translate(${x}px, ${y}px) scale(1.5)`
+      setTimeout(() => {
+        character.style.transform = `translate(${x}px, ${y}px) scale(1)`
+      }, 500);
+    }
+
+    if(keys["w"] && onGround){
+      velocityY = -20;
+      onGround = false;
+    }
+
+    velocityY += 1;
+    y += velocityY;
+
+    if(y > 0){
+      y = 0;
+      velocityY = 0;
+      onGround = true;
+    }
+
+    // SPEED CONTROL
+    if (moving){
+      moveX += 1;
+      if (moveX >= 4){
+        moveX = 4;
+      }
+    } else {
+      moveX -= 1;
+      if (moveX <= 0){
+        moveX = 0;
+      }
+    }
+
+    // 🎯 SPRITE LOGIC
+    if (moving) {
+      if (right) {
+        setSprite("assets/walkingright.gif");
+      } else if (left) {
+        setSprite("assets/walkingleft.gif");
+      }
+    } else {
+      if (right) {
+        setSprite("assets/facingright.png");
+      } else if (left) {
+        setSprite("assets/facingleft.png");
+      }
+    }
+
+    // APPLY POSITION
+    character.style.transform = `translate(${x}px, ${y}px)`;
+
+  },16);
 }
 
 function addValue(){
