@@ -164,7 +164,7 @@ const minX = arenaRect.left
 function rebirth(){
   if(roseValue >= rebirthCost){
     roseValue-=rebirthCost
-    roseValue = 100000000000
+    roseValue = 0
     multiplier = 1
     sharpenMultiplier = 1
     distance = 0
