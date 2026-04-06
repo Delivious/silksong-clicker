@@ -6,3 +6,5 @@ This is based on the popular game "Hollow Knight: Silksong" and most of the mate
 This is a fan game based on the game.
 
 From after the "database connection yippee!!!!" to "fixing stuff" it is seemingly broken and you should only use any branches after that.
+
+Removed database and logging in, caused many problems and without knowing how to fix them, we inevitably removed it.
