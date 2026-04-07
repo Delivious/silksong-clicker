@@ -1,3 +1,4 @@
+
 const rebirthBtnToRebirth = document.querySelector("#rebirthBtnToRebirth")
 const skill1 = document.querySelector("#skill1")
 const skill2 = document.querySelector("#skill2")
@@ -59,12 +60,13 @@ const upgList = [upg1, upg2, upg3, upg4, upg5, upg6, upg7, upg8, upg9, upg10, up
 const upgChildren = [upg1Desc, upg2Desc, upg3Desc, upg4Desc, upg5Desc, upg6Desc, upg7Desc, upg8Desc, upg9Desc, upg10Desc, upg11Desc]
 const skillList = [skill1, skill2, skill3, skill4]
 const skillChildren = [skill1Desc, skill2Desc, skill3Desc, skill4Desc]
-let roseValue = 100000000000
+let roseValue = 0
 let multiplier = 1
 let sharpenMultiplier = 1
 let distance = 0
 let hornetBtnNew = null
 let distanceX=0
+let spaceCounter=0
 let displayMenu = false
 let bossHealth = 0
 let throwerCost = 50
@@ -280,6 +282,25 @@ document.addEventListener("mousedown",()=>{
       }
   },158000)
 })
+function formatNumber(num) {
+  if (num < 1000) return num.toFixed(2);
+
+  const suffixes = [
+    "", "K", "M", "B", "T",
+    "Qa", "Qi", "Sx", "Sp", "Oc", "No", "Dc"
+  ];
+
+  let exponent = Math.floor(Math.log10(num));
+  let tier = Math.floor(exponent / 3);
+
+  if (tier < suffixes.length) {
+    let scaled = num / Math.pow(10, tier * 3);
+    return scaled.toFixed(2) + suffixes[tier];
+  }
+
+  let mantissa = num / Math.pow(10, exponent);
+  return mantissa.toFixed(2) + "e" + exponent;
+}
 let rpsPrevious = 0
 const arenaRect = bossArenaMain.getBoundingClientRect()
 const maxX = arenaRect.right 
@@ -287,7 +308,7 @@ const minX = arenaRect.left
 function rebirth(){
   if(roseValue >= rebirthCost){
     roseValue-=rebirthCost
-    roseValue = 100000000000
+    roseValue = 0
     multiplier = 1
     sharpenMultiplier = 1
     distance = 0
@@ -366,7 +387,7 @@ btn7.addEventListener("click",addValue)
 btn8.addEventListener("click",addValue)
 btn9.addEventListener("click",addValue)
 setInterval(()=>{
-  hornetPara.textContent =  `Rosaries: ${roseValue}`
+  hornetPara.textContent = `Rosaries: ${formatNumber(roseValue)}`
 },100)
 skill1.addEventListener("click",()=>{
   if(rebirthTokens>=skill1Cost){
@@ -468,6 +489,11 @@ addEventListener("keydown",(e)=>{
   if (e.code=="Space"){
     e.preventDefault()
     addValue()
+  }
+})
+addEventListener("keyup",(e)=>{
+  if (e.code=="Space"){
+    spaceCounter=0
   }
 })
 upg1.addEventListener("click", () => {
@@ -650,12 +676,11 @@ function addValue(){
   // the image the user actually clicked
   spawnParticles()
   if (rebirthCount == 0){
-    roseValue+=multiplier*rebirthMultiplier + Math.floor(((rpsRebirth + rpsPercent) * rpsPrevious))
+    roseValue+=multiplier *rebirthMultiplier + Math.floor(((rpsRebirth + rpsPercent) * rpsPrevious))
   }
   else{
-   roseValue+=multiplier * rebirthMultiplier + Math.floor(((rpsRebirth + rpsPercent) * rpsPrevious))
+    roseValue+=multiplier * rebirthMultiplier + Math.floor(((rpsRebirth + rpsPercent) * rpsPrevious))
   }
-  hornetPara.textContent = `Rosaries: ${roseValue}`
   setTimeout(() =>{
       hornetBtn.style.transform="scale(1.16)"
       hornetBtnNew.style.transform="scale(1.16)"
