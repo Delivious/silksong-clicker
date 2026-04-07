@@ -538,26 +538,28 @@ function bossFight(){
     }
 
     // 🎯 SPRITE LOGIC
-    if (moving) {
-      if (right && !crouch) {
-        setSprite("assets/walkingright.gif");
-      } else if (left && !crouch) {
-        setSprite("assets/walkingleft.gif");
-      }
-    } else {
-      
-      if (right) {
-        setSprite("assets/facingright.png");
-        if(crouch){
-          setSprite("assets/crouchright.gif");
-        }
-      } else if (left) {
-        setSprite("assets/facingleft.png");
-        if(crouch){
-          setSprite("assets/crouchleft.gif");
-        }
-      }
+    if (crouch) {
+    // CROUCH STATE (overrides everything)
+    if (right) {
+      setSprite("assets/crouchright.gif");
+    } else if (left) {
+      setSprite("assets/crouchleft.gif");
     }
+  } else if (moving) {
+    // WALKING
+    if (right) {
+      setSprite("assets/walkingright.gif");
+    } else if (left) {
+      setSprite("assets/walkingleft.gif");
+    }
+  } else {
+    // IDLE (not moving, not crouching)
+    if (right) {
+      setSprite("assets/facingright.png");
+    } else if (left) {
+      setSprite("assets/facingleft.png");
+    }
+  }
 
     // APPLY POSITION
     character.style.transform = `translate(${x}px, ${y}px)`;
