@@ -60,6 +60,7 @@ const upgList = [upg1, upg2, upg3, upg4, upg5, upg6, upg7, upg8, upg9, upg10, up
 const upgChildren = [upg1Desc, upg2Desc, upg3Desc, upg4Desc, upg5Desc, upg6Desc, upg7Desc, upg8Desc, upg9Desc, upg10Desc, upg11Desc]
 const skillList = [skill1, skill2, skill3, skill4]
 const skillChildren = [skill1Desc, skill2Desc, skill3Desc, skill4Desc]
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 let roseValue = 0
 let multiplier = 1
 let sharpenMultiplier = 1
@@ -118,7 +119,43 @@ let charPos = 0
 let clickcost=500
 let lofiBeat = null
 let canPlay = true
+let backgroundColorUpg1r=4
+let backgroundColorUpg1g=57
+let backgroundColorUpg1b=92
+let backgroundColorUpg2r=30
+let backgroundColorUpg2g=30
+let backgroundColorUpg2b=30
+let backgroundColorUpg1 = `rgb(${backgroundColorUpg1r}, ${backgroundColorUpg1g}, ${backgroundColorUpg1b})`;
+let backgroundColorUpg2 = `rgb(${backgroundColorUpg2r}, ${backgroundColorUpg2g}, ${backgroundColorUpg2b})`;
+async function updateBackgroundColors() {
+  setInterval(async ()=>{
+    backgroundColorUpg1r += 5;
+    backgroundColorUpg1g += 5;
+    backgroundColorUpg1b += 5;
+    backgroundColorUpg2r += 5;
+    backgroundColorUpg2g += 5;
+    backgroundColorUpg2b += 5;
+    if (backgroundColorUpg1r <= 100 && backgroundColorUpg1g > 100 && backgroundColorUpg1b > 100 && backgroundColorUpg2r > 100 && backgroundColorUpg2g > 100 && backgroundColorUpg2b > 100) {
+      while (backgroundColorUpg1r >= 4 && backgroundColorUpg1g >= 4 && backgroundColorUpg1b >= 4 && backgroundColorUpg2r >= 4 && backgroundColorUpg2g >= 4 && backgroundColorUpg2b >= 4) {
+        backgroundColorUpg1r -= 5;
+        backgroundColorUpg1g -= 5;
+        backgroundColorUpg1b -= 5;
+        backgroundColorUpg2r -= 5;
+        backgroundColorUpg2g -= 5;
+        backgroundColorUpg2b -= 5;
+        backgroundColorUpg1 = `rgb(${backgroundColorUpg1r}, ${backgroundColorUpg1g}, ${backgroundColorUpg1b})`;
+        backgroundColorUpg2 = `rgb(${backgroundColorUpg2r}, ${backgroundColorUpg2g}, ${backgroundColorUpg2b})`;
+        upgradeContainer.style.background = `linear-gradient(90deg, ${backgroundColorUpg1}, ${backgroundColorUpg2},${backgroundColorUpg1}, ${backgroundColorUpg2},${backgroundColorUpg1}, ${backgroundColorUpg2})`;
+        await sleep(100)
+      }
+    }
+    backgroundColorUpg1 = `rgb(${backgroundColorUpg1r}, ${backgroundColorUpg1g}, ${backgroundColorUpg1b})`;
+    backgroundColorUpg2 = `rgb(${backgroundColorUpg2r}, ${backgroundColorUpg2g}, ${backgroundColorUpg2b})`;
+    upgradeContainer.style.background = `linear-gradient(90deg, ${backgroundColorUpg1}, ${backgroundColorUpg2},${backgroundColorUpg1}, ${backgroundColorUpg2},${backgroundColorUpg1}, ${backgroundColorUpg2})`;
 
+  },100)
+}
+updateBackgroundColors()
 document.addEventListener("mousedown",()=>{
   if (canPlay){
     canPlay=false

@@ -7,7 +7,7 @@
     text-shadow: 5px 5px 10px rgba(0,0,0,.15), -5px -5px 10px rgba(255,255,255,0.6);
 }
 #body1{
-    background: linear-gradient(90deg, lightgreen, darkgreen);
+    background: radial-gradient(rgb(255, 24, 24), rgb(255, 29, 29),rgb(172, 17, 17),maroon);
     position: relative;
 }
 #body2{
@@ -222,8 +222,11 @@
     height: 30%;
     justify-content: center;
     margin-top: 20px;
-    background-color: brown;
+    background: linear-gradient(90deg, rgb(4, 57, 92), rgb(30, 30, 30),rgb(4, 57, 92), rgb(30, 30, 30),rgb(4, 57, 92), rgb(30, 30, 30));
     z-index: 900;
+    border-radius: 5%;
+    border: 3px solid rgb(30,30,30);
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 
 }
 #upg1{
