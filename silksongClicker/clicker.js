@@ -119,7 +119,7 @@ let charPos = 0
 let clickcost=500
 let lofiBeat = null
 let canPlay = true
-crouch=false
+let crouch=false
 let backgroundColorUpg1r=4
 let backgroundColorUpg1g=57
 let backgroundColorUpg1b=92
@@ -539,9 +539,9 @@ function bossFight(){
 
     // 🎯 SPRITE LOGIC
     if (moving) {
-      if (right) {
+      if (right && !crouch) {
         setSprite("assets/walkingright.gif");
-      } else if (left) {
+      } else if (left && !crouch) {
         setSprite("assets/walkingleft.gif");
       }
     } else {
