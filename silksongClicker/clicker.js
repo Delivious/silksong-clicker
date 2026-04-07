@@ -116,6 +116,7 @@ let charPos = 0
 let clickcost=500
 let lofiBeat = null
 let canPlay = true
+crouch=false
 function getGameData() {
   return {
     roseValue: roseValue,
@@ -560,13 +561,19 @@ function setSprite(src){
 function bossFight(){
   move = setInterval(()=>{
 
-    moving = false; // reset every frame
+    moving = false; // reset every frame  
+    crouch = false;
 
     if(keys["a"]){
       x -= moveX;
       left = true;
       right = false;
       moving = true;
+    }
+
+    if(keys["s"]){
+      y += moveY;
+      crouch = true;
     }
 
     if(keys["d"]) {
@@ -618,10 +625,17 @@ function bossFight(){
         setSprite("assets/walkingleft.gif");
       }
     } else {
+      
       if (right) {
         setSprite("assets/facingright.png");
+        if(crouch){
+          setSprite("assets/crouchright.gif");
+        }
       } else if (left) {
         setSprite("assets/facingleft.png");
+        if(crouch){
+          setSprite("assets/crouchleft.gif");
+        }
       }
     }
 
