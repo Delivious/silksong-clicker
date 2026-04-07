@@ -126,36 +126,59 @@ let backgroundColorUpg1b=92
 let backgroundColorUpg2r=30
 let backgroundColorUpg2g=30
 let backgroundColorUpg2b=30
+let maxReached = false
+let minReached = true
 let backgroundColorUpg1 = `rgb(${backgroundColorUpg1r}, ${backgroundColorUpg1g}, ${backgroundColorUpg1b})`;
 let backgroundColorUpg2 = `rgb(${backgroundColorUpg2r}, ${backgroundColorUpg2g}, ${backgroundColorUpg2b})`;
-async function updateBackgroundColors() {
-  setInterval(async ()=>{
-    backgroundColorUpg1r += 5;
-    backgroundColorUpg1g += 5;
-    backgroundColorUpg1b += 5;
-    backgroundColorUpg2r += 5;
-    backgroundColorUpg2g += 5;
-    backgroundColorUpg2b += 5;
-    if (backgroundColorUpg1r <= 100 && backgroundColorUpg1g > 100 && backgroundColorUpg1b > 100 && backgroundColorUpg2r > 100 && backgroundColorUpg2g > 100 && backgroundColorUpg2b > 100) {
-      while (backgroundColorUpg1r >= 4 && backgroundColorUpg1g >= 4 && backgroundColorUpg1b >= 4 && backgroundColorUpg2r >= 4 && backgroundColorUpg2g >= 4 && backgroundColorUpg2b >= 4) {
-        backgroundColorUpg1r -= 5;
-        backgroundColorUpg1g -= 5;
-        backgroundColorUpg1b -= 5;
-        backgroundColorUpg2r -= 5;
-        backgroundColorUpg2g -= 5;
-        backgroundColorUpg2b -= 5;
-        backgroundColorUpg1 = `rgb(${backgroundColorUpg1r}, ${backgroundColorUpg1g}, ${backgroundColorUpg1b})`;
-        backgroundColorUpg2 = `rgb(${backgroundColorUpg2r}, ${backgroundColorUpg2g}, ${backgroundColorUpg2b})`;
-        upgradeContainer.style.background = `linear-gradient(90deg, ${backgroundColorUpg1}, ${backgroundColorUpg2},${backgroundColorUpg1}, ${backgroundColorUpg2},${backgroundColorUpg1}, ${backgroundColorUpg2})`;
-        await sleep(100)
+function updateBackgroundColors() {
+  const MIN = 4
+  const MAX = 120
+  setInterval(() => {
+    if (
+      (backgroundColorUpg1r <= MAX &&
+      backgroundColorUpg1g <= MAX &&
+      backgroundColorUpg1b <= MAX &&
+      backgroundColorUpg2r <= MAX &&
+      backgroundColorUpg2g <= MAX &&
+      backgroundColorUpg2b <= MAX) && minReached) 
+    {
+      backgroundColorUpg1r++
+      backgroundColorUpg1g++
+      backgroundColorUpg1b++
+      backgroundColorUpg2r++
+      backgroundColorUpg2g++
+      backgroundColorUpg2b++
+      if (backgroundColorUpg1r > MAX || backgroundColorUpg1g > MAX || backgroundColorUpg1b > MAX || (backgroundColorUpg2r > MAX || backgroundColorUpg2g > MAX || backgroundColorUpg2b > MAX)){
+        maxReached = true
+        minReached = false
+      }
+    } 
+    if (
+      (backgroundColorUpg1r >= MIN &&
+      backgroundColorUpg1g >= MIN &&
+      backgroundColorUpg1b >= MIN &&
+      backgroundColorUpg2r >= MIN &&
+      backgroundColorUpg2g >= MIN &&
+      backgroundColorUpg2b >= MIN)&&maxReached)
+    {
+      backgroundColorUpg1r-=1
+      backgroundColorUpg1g-=1
+      backgroundColorUpg1b-=1
+      backgroundColorUpg2r-=1
+      backgroundColorUpg2g-=1
+      backgroundColorUpg2b-=1
+      if (backgroundColorUpg1r < MIN || backgroundColorUpg1g < MIN || backgroundColorUpg1b < MIN || backgroundColorUpg2r < MIN || backgroundColorUpg2g < MIN || backgroundColorUpg2b < MIN){
+        maxReached = false
+        minReached = true
       }
     }
+
     backgroundColorUpg1 = `rgb(${backgroundColorUpg1r}, ${backgroundColorUpg1g}, ${backgroundColorUpg1b})`;
     backgroundColorUpg2 = `rgb(${backgroundColorUpg2r}, ${backgroundColorUpg2g}, ${backgroundColorUpg2b})`;
-    upgradeContainer.style.background = `linear-gradient(90deg, ${backgroundColorUpg1}, ${backgroundColorUpg2},${backgroundColorUpg1}, ${backgroundColorUpg2},${backgroundColorUpg1}, ${backgroundColorUpg2})`;
-
-  },100)
+    upgradeContainer.style.background = `linear-gradient(90deg, ${backgroundColorUpg1}, ${backgroundColorUpg2}, ${backgroundColorUpg1}, ${backgroundColorUpg2}, ${backgroundColorUpg1}, ${backgroundColorUpg2})`;
+  }, 50);
 }
+
 updateBackgroundColors()
 document.addEventListener("mousedown",()=>{
   if (canPlay){
