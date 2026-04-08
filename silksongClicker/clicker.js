@@ -559,7 +559,7 @@ function bossFight(){
         moveX = 0;
       }
     }
-
+    
     // 🎯 SPRITE LOGIC
     if (!onGround) {
       // JUMPING (overrides everything except maybe crouch if you want)
