@@ -61,42 +61,33 @@ const upgChildren = [upg1Desc, upg2Desc, upg3Desc, upg4Desc, upg5Desc, upg6Desc,
 const skillList = [skill1, skill2, skill3, skill4]
 const skillChildren = [skill1Desc, skill2Desc, skill3Desc, skill4Desc]
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+let costs = [50,200,750,3000]
+let counts = [0,0,0,0]
+let actives = [null, null, null, null]
 let roseValue = 0
 let multiplier = 1
-let sharpenMultiplier = 1
 let distance = 0
 let hornetBtnNew = null
 let distanceX=0
 let spaceCounter=0
 let displayMenu = false
 let bossHealth = 0
-let throwerCost = 50
-let thrower=null
-let throwerCount=0
 let purchase1 = false
 let purchase2 = false
 let purchase3 = false
 let purchase4 = false
 let purchase5 = false
-let sharpCost=200
-let sharp=null
-let sharpCount=0
 let bought1 = false
 let bought2 = false
 let bought3 = false
 let bought4 = false
 let rpsCounter = 0
 let rps = 0
-let paleOilCost = 3000
-let paleOilCount = 0
 let rpsSubtract = 0
 let skill1Cost = 3
 let skill2Cost = 5
 let skill3Cost = 5
 let skill4Cost = 7
-let threefoldCost = 750
-let threefold=null
-let threefoldCount=0
 let rebirthMultiplier = 1
 let rebirthCount=0
 let rebirthTokens=0
@@ -235,8 +226,8 @@ function rebirth(){
     hornetBtn.style.display = "block"
     distanceX=0
     displayMenu = false
-    throwerCost = 50
-    throwerCount=0
+    counts = [0,0,0,0]
+    costs = [50,200,750,3000]
     purchase1 = false
     purchase2 = false
     purchase3 = false
@@ -252,24 +243,16 @@ function rebirth(){
     upg9.style.display = "block"
     upg10.style.display = "block"
     upg11.style.display = "block"
-    sharpCost=200
-    sharpCount=0
     rpsCounter = 0
     rps = 0
     rpsPercent = 0
     rpsSubtract = 0
-    threefoldCost = 750
-    threefoldCount=0
     rebirthCount+=1
     rebirthTokens+=10
-    clearInterval(thrower)
-    paleOilCost = 3000
-    paleOilCount = 0
-    clearInterval(sharp)
-    clearInterval(threefold)
-    thrower = null
-    sharp = null
-    threefold = null
+    clearInterval(actives[0])
+    clearInterval(actives[1])
+    clearInterval(actives[2])
+    actives = [null, null, null, null]
     rebirthCost=rebirthCost*2.5
     rebirthBtnToRebirth.textContent = `Rebirth for ${rebirthCost} Rosaries`
     sharpen.textContent = `Get your Nail to slash attack the button for ${5*sharpenMultiplier} Rosaries a second! Cost: ${sharpCost} Rosaries`
@@ -754,8 +737,11 @@ function spawnParticles() {
   }
 }
 function throwy(){
+  let throwerCost = costs[0]
+  let throwerCount = counts[0]
+  let thrower = actives[0]
+  let paleOilCount = counts[3]
   if (roseValue >= throwerCost){
-
     if(!thrower){
       thrower = setInterval(() =>{
         roseValue += throwerCount + ((paleOilCount * 3)*throwerCount)
@@ -766,13 +752,19 @@ function throwy(){
     throwerCount += 1
     roseValue -= throwerCost
     throwerCost = Math.trunc(throwerCost * 1.1)
-
+    counts[0] = throwerCount
+    actives[0] = thrower
+    costs[0] = throwerCost
     lighttool.textContent =
       `Get a Light Throwing Tool that gets you 1 Rosarie per second! Cost: ${throwerCost} Rosaries`
   }
 }
 
 function sharpened(){
+  let sharpCost = costs[1]
+  let sharpCount = counts[1]
+  let sharp = actives[1]
+  let paleOilCount = counts[3]
   if (roseValue >= sharpCost){
 
     if(!sharp){
@@ -785,12 +777,18 @@ function sharpened(){
     sharpCount += 1
     roseValue -= sharpCost
     sharpCost = Math.trunc(sharpCost * 1.1)
-
+    actives[1]=sharp
+    counts[1]=sharpCount
+    costs[1]=sharpCost
     sharpen.textContent =
       `Get your Nail to slash attack the button for ${5*sharpenMultiplier} Rosaries a second! Cost: ${sharpCost} Rosaries`
   }
 }
 function threefoldfunc(){
+  let threefoldCost = costs[2]
+  let threefoldCount = counts[2]
+  let threefold = actives[2]
+  let paleOilCount = counts[3]
   if (roseValue >= threefoldCost){
 
     if(!threefold){
@@ -803,16 +801,21 @@ function threefoldfunc(){
     threefoldCount += 1
     roseValue -= threefoldCost
     threefoldCost = Math.trunc(threefoldCost * 1.1)
-
+    actives[2]=threefold
+    counts[2]=threefoldCount
+    costs[2]=threefoldCost
     threefoldBtn.textContent = `Get your Threefold Pin and throw pins at the button for 15 Rosaries a second! Cost: ${threefoldCost} Rosaries`
   }
 }
 function paleOilFunc(){
+  let paleOilCost = costs[3]
+  let paleOilCount = counts[3]
   if (roseValue >= paleOilCost){
     paleOilCount += 1
     roseValue -= paleOilCost
     paleOilCost = Math.trunc(paleOilCost * 1.65)
-
+    counts[3]=paleOilCount
+    costs[3]=paleOilCost
     paleOil.textContent = `Get your Pale Oil to *BUFF* every one of your tools by +3 Rosaries! Cost: ${paleOilCost} Rosaries`
   }
 }
