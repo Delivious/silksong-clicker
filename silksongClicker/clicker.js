@@ -1,4 +1,4 @@
-
+//variables
 const rebirthBtnToRebirth = document.querySelector("#rebirthBtnToRebirth")
 const skill1 = document.querySelector("#skill1")
 const skill2 = document.querySelector("#skill2")
@@ -59,44 +59,38 @@ const btnList = [btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, hornetBtn, btn9
 const upgList = [upg1, upg2, upg3, upg4, upg5, upg6, upg7, upg8, upg9, upg10, upg11]
 const upgChildren = [upg1Desc, upg2Desc, upg3Desc, upg4Desc, upg5Desc, upg6Desc, upg7Desc, upg8Desc, upg9Desc, upg10Desc, upg11Desc]
 const skillList = [skill1, skill2, skill3, skill4]
-const skillChildren = [skill1Desc, skill2Desc, skill3Desc, skill4Desc]
+// replace any usage of undeclared skill1Desc etc with safe selections:
+const skillChildren = ["#skill1Desc", "#skill2Desc", "#skill3Desc", "#skill4Desc"]
+  .map(id => document.querySelector(id))
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+let costs = [50,200,750,3000]
+let counts = [0,0,0,0]
+let actives = [null, null, null, null]
 let roseValue = 0
 let multiplier = 1
-let sharpenMultiplier = 1
 let distance = 0
 let hornetBtnNew = null
 let distanceX=0
 let spaceCounter=0
 let displayMenu = false
 let bossHealth = 0
-let throwerCost = 50
-let thrower=null
-let throwerCount=0
 let purchase1 = false
 let purchase2 = false
 let purchase3 = false
 let purchase4 = false
 let purchase5 = false
-let sharpCost=200
-let sharp=null
-let sharpCount=0
 let bought1 = false
 let bought2 = false
 let bought3 = false
 let bought4 = false
 let rpsCounter = 0
+let sharpenMultiplier = 1
 let rps = 0
-let paleOilCost = 3000
-let paleOilCount = 0
 let rpsSubtract = 0
 let skill1Cost = 3
 let skill2Cost = 5
 let skill3Cost = 5
 let skill4Cost = 7
-let threefoldCost = 750
-let threefold=null
-let threefoldCount=0
 let rebirthMultiplier = 1
 let rebirthCount=0
 let rebirthTokens=0
@@ -120,21 +114,24 @@ let clickcost=500
 let lofiBeat = null
 let canPlay = true
 let crouch=false
-let backgroundColorUpg1r=4
-let backgroundColorUpg1g=57
-let backgroundColorUpg1b=92
-let backgroundColorUpg2r=30
-let backgroundColorUpg2g=30
-let backgroundColorUpg2b=30
-let maxReached = false
-let minReached = true
-let backgroundColorUpg1 = `rgb(${backgroundColorUpg1r}, ${backgroundColorUpg1g}, ${backgroundColorUpg1b})`;
-let backgroundColorUpg2 = `rgb(${backgroundColorUpg2r}, ${backgroundColorUpg2g}, ${backgroundColorUpg2b})`;
+//Changes background color of upgrade menu (top right)
 function updateBackgroundColors() {
+  //variables
+  let backgroundColorUpg1r=4
+  let backgroundColorUpg1g=57
+  let backgroundColorUpg1b=92
+  let backgroundColorUpg2r=30
+  let backgroundColorUpg2g=30
+  let backgroundColorUpg2b=30
+  let maxReached = false
+  let minReached = true
+  let backgroundColorUpg1 = `rgb(${backgroundColorUpg1r}, ${backgroundColorUpg1g}, ${backgroundColorUpg1b})`;
+  let backgroundColorUpg2 = `rgb(${backgroundColorUpg2r}, ${backgroundColorUpg2g}, ${backgroundColorUpg2b})`;
   const MIN = 4
   const MAX = 120
+  // time loop for background color changes
   setInterval(() => {
-    if (
+    if (//checks for background colors if they are greater than the max size
       (backgroundColorUpg1r <= MAX &&
       backgroundColorUpg1g <= MAX &&
       backgroundColorUpg1b <= MAX &&
@@ -148,12 +145,13 @@ function updateBackgroundColors() {
       backgroundColorUpg2r++
       backgroundColorUpg2g++
       backgroundColorUpg2b++
+      //sets maxReahed turns off minReached
       if (backgroundColorUpg1r > MAX || backgroundColorUpg1g > MAX || backgroundColorUpg1b > MAX || (backgroundColorUpg2r > MAX || backgroundColorUpg2g > MAX || backgroundColorUpg2b > MAX)){
         maxReached = true
         minReached = false
       }
     } 
-    if (
+    if (// opposite of the top if statement
       (backgroundColorUpg1r >= MIN &&
       backgroundColorUpg1g >= MIN &&
       backgroundColorUpg1b >= MIN &&
@@ -167,20 +165,23 @@ function updateBackgroundColors() {
       backgroundColorUpg2r-=1
       backgroundColorUpg2g-=1
       backgroundColorUpg2b-=1
+      //sets minReached turns off maxReached
       if (backgroundColorUpg1r < MIN || backgroundColorUpg1g < MIN || backgroundColorUpg1b < MIN || backgroundColorUpg2r < MIN || backgroundColorUpg2g < MIN || backgroundColorUpg2b < MIN){
         maxReached = false
         minReached = true
       }
     }
-
+    //sets background of the container to the new colors
     backgroundColorUpg1 = `rgb(${backgroundColorUpg1r}, ${backgroundColorUpg1g}, ${backgroundColorUpg1b})`;
     backgroundColorUpg2 = `rgb(${backgroundColorUpg2r}, ${backgroundColorUpg2g}, ${backgroundColorUpg2b})`;
     upgradeContainer.style.background = `linear-gradient(90deg, ${backgroundColorUpg1}, ${backgroundColorUpg2}, ${backgroundColorUpg1}, ${backgroundColorUpg2}, ${backgroundColorUpg1}, ${backgroundColorUpg2})`;
   }, 50);
 }
-
+//starts background change
 updateBackgroundColors()
+//checks for user input to autoplay background music
 document.addEventListener("mousedown",()=>{
+  //checks if the music can be played without overlapping
   if (canPlay){
     canPlay=false
     setTimeout(()=>{
@@ -188,6 +189,7 @@ document.addEventListener("mousedown",()=>{
     },1)
   }
   setInterval(()=>{
+      //checks if the music can be played without overlapping
       if (canPlay){
         canPlay=false
         setTimeout(()=>{
@@ -197,24 +199,26 @@ document.addEventListener("mousedown",()=>{
           canPlay=true
         },158000)
       }
-  },158000)
+  },158005)
 })
+//func for formatting numbers for high values
 function formatNumber(num) {
+  //checks if number is less than 1000, if it is it returns the number with 2 decimals
   if (num < 1000) return num.toFixed(2);
-
+  //otherwise it formats the number with suffixes
   const suffixes = [
     "", "K", "M", "B", "T",
     "Qa", "Qi", "Sx", "Sp", "Oc", "No", "Dc"
   ];
-
+//equations
   let exponent = Math.floor(Math.log10(num));
   let tier = Math.floor(exponent / 3);
-
+  // if statement for checking tier
   if (tier < suffixes.length) {
     let scaled = num / Math.pow(10, tier * 3);
     return scaled.toFixed(2) + suffixes[tier];
   }
-
+  // sets the tier
   let mantissa = num / Math.pow(10, exponent);
   return mantissa.toFixed(2) + "e" + exponent;
 }
@@ -222,6 +226,7 @@ let rpsPrevious = 0
 const arenaRect = bossArenaMain.getBoundingClientRect()
 const maxX = arenaRect.right 
 const minX = arenaRect.left
+//rebirth function to reset stats for a boost
 function rebirth(){
   if(roseValue >= rebirthCost){
     roseValue-=rebirthCost
@@ -235,8 +240,8 @@ function rebirth(){
     hornetBtn.style.display = "block"
     distanceX=0
     displayMenu = false
-    throwerCost = 50
-    throwerCount=0
+    counts = [0,0,0,0]
+    costs = [50,200,750,3000]
     purchase1 = false
     purchase2 = false
     purchase3 = false
@@ -252,40 +257,34 @@ function rebirth(){
     upg9.style.display = "block"
     upg10.style.display = "block"
     upg11.style.display = "block"
-    sharpCost=200
-    sharpCount=0
     rpsCounter = 0
     rps = 0
     rpsPercent = 0
     rpsSubtract = 0
-    threefoldCost = 750
-    threefoldCount=0
     rebirthCount+=1
     rebirthTokens+=10
-    clearInterval(thrower)
-    paleOilCost = 3000
-    paleOilCount = 0
-    clearInterval(sharp)
-    clearInterval(threefold)
-    thrower = null
-    sharp = null
-    threefold = null
+    clearInterval(actives[0])
+    clearInterval(actives[1])
+    clearInterval(actives[2])
+    actives = [null, null, null, null]
     rebirthCost=rebirthCost*2.5
     rebirthBtnToRebirth.textContent = `Rebirth for ${rebirthCost} Rosaries`
-    sharpen.textContent = `Get your Nail to slash attack the button for ${5*sharpenMultiplier} Rosaries a second! Cost: ${sharpCost} Rosaries`
-    lighttool.textContent = `Get a Light Throwing Tool that gets you 1 Rosarie per second! Cost: ${throwerCost} Rosaries`
-    threefoldBtn.textContent = `Get your Threefold Pin and throw pins at the button for 15 Rosaries a second! Cost: ${threefoldCost} Rosaries`
+    sharpen.textContent = `Get your Nail to slash attack the button for ${5*sharpenMultiplier} Rosaries a second! Cost: ${costs[1]} Rosaries`
+    lighttool.textContent = `Get a Light Throwing Tool that gets you 1 Rosarie per second! Cost: ${costs[0]} Rosaries`
+    threefoldBtn.textContent = `Get your Threefold Pin and throw pins at the button for 15 Rosaries a second! Cost: ${costs[2]} Rosaries`
     if (rebirthCount >= 1){
       paleOil.style.display = "block"
     }
   }
 }
+//button event listeners
 rebirthBtnToRebirth.addEventListener("click",rebirth)
 sharpen.addEventListener("click",sharpened)
 hornetBtn.addEventListener("click",addValue)
 lighttool.addEventListener("click",throwy)
 threefoldBtn.addEventListener("click",threefoldfunc)
 paleOil.addEventListener("click",paleOilFunc)
+//checks the form if they want button noise
 modeForm.addEventListener("change",(c)=>{
   if (c.target.value == "ButtonNoise"){
     noiseMode=true
@@ -294,6 +293,7 @@ modeForm.addEventListener("change",(c)=>{
     noiseMode=false
   }
 })
+//button event listeners
 btn1.addEventListener("click",addValue)
 btn2.addEventListener("click",addValue)
 btn3.addEventListener("click",addValue)
@@ -303,12 +303,17 @@ btn6.addEventListener("click",addValue)
 btn7.addEventListener("click",addValue)
 btn8.addEventListener("click",addValue)
 btn9.addEventListener("click",addValue)
+//updates the hornetPara text content
 setInterval(()=>{
   hornetPara.textContent = `Rosaries: ${formatNumber(roseValue)}`
 },100)
+//only allow skill1 to be bought once (doing comments for this skill only btw)
 skill1.addEventListener("click",()=>{
+  //checks if the user has enough rebirth tokens
   if(rebirthTokens>=skill1Cost){
+    //checks if the skill has already been bought
     if(!bought1){  
+      //removes currency and applies buff
       rebirthTokens-=skill1Cost
       rebirthMultiplier=rebirthMultiplier*2
       bought1 = true
@@ -329,6 +334,7 @@ skill2.addEventListener("click",()=>{
 skill3.addEventListener("click",()=>{
   if(rebirthTokens>=skill3Cost && bought1){
     if(!bought3){  
+      //this one uses percentages to buff your clicks by your rps
       rebirthTokens-=skill3Cost
       rpsRebirth+=0.01
       bought3 = true
@@ -347,6 +353,7 @@ skill4.addEventListener("click",()=>{
     }  
   }
 })
+//these are key inputs
 document.addEventListener("keydown", (e)=>{
   keys[e.key] = true
 })
@@ -354,6 +361,7 @@ document.addEventListener("keydown", (e)=>{
 document.addEventListener("keyup", (e)=>{
   keys[e.key] = false
 })
+//displays boss arena and disables it
 arenaBtn.addEventListener("click", ()=>{
   const display = getComputedStyle(bossArena).display
   if (display == "none"){
@@ -362,6 +370,7 @@ arenaBtn.addEventListener("click", ()=>{
     character.style.display = "block"
     bossFight()
   }
+  //exits if you kill the boss
   else if(bossHealth <= 0){
     bossArena.style.display = "none"
     bossArenaMain.style.display = "none"
@@ -369,6 +378,7 @@ arenaBtn.addEventListener("click", ()=>{
     clearInterval(move)
   }
 })
+//displays the rebirth menu
 rebirthBtn.addEventListener("click", () => {
   const displayMenu = (getComputedStyle(rebirthMenu).display == "none")
   if (displayMenu){
@@ -384,6 +394,7 @@ rebirthBtn.addEventListener("click", () => {
     clearInterval(rebirthTokenInt)
   }
 })
+// adds an event listener for each element in the upgrade list
 upgList.forEach((el, idx) => {
   if (!el) return
   el.addEventListener('mouseenter', () => {
@@ -393,6 +404,7 @@ upgList.forEach((el, idx) => {
     upgChildren[idx].style.display = 'none'
   })
 })
+// adds an event listener for each element in the skill list
 skillList.forEach((el, idx) => {
   if (!el) return
   el.addEventListener('mouseenter', () => {
@@ -402,19 +414,16 @@ skillList.forEach((el, idx) => {
     skillChildren[idx].style.display = 'none'
   })
 })
+//checks for key press space to click for you
 addEventListener("keydown",(e)=>{
   if (e.code=="Space"){
     e.preventDefault()
     addValue()
   }
 })
-addEventListener("keyup",(e)=>{
-  if (e.code=="Space"){
-    spaceCounter=0
-  }
-})
+//upgrade event listeners
 upg1.addEventListener("click", () => {
-
+  //checks if purchased and have enough for it
   if (roseValue >= clickcost && !purchase1) {
     roseValue -= clickcost
     upg1Img.src = "assets/mouse2.png"
@@ -466,7 +475,7 @@ upg2.addEventListener("click", () => {
     roseValue -= 1000
     upg2.style.display = "none"
     sharpenMultiplier+=1
-    sharpen.textContent = `Get your Nail to slash attack the button for ${5*sharpenMultiplier} Rosaries a second! Cost: ${sharpCost} Rosaries`
+    sharpen.textContent = `Get your Nail to slash attack the button for ${5*sharpenMultiplier} Rosaries a second! Cost: ${costs[1]} Rosaries`
   }
 })
 upg4.addEventListener("click", () => {
@@ -477,11 +486,13 @@ upg4.addEventListener("click", () => {
     
   }
 })
+//counts rps
 setInterval(()=>{
   rpsText.textContent=`Your RPS is: ${rps}`
   rpsPrevious = rps
   rps=0
 },1000)
+//pointless function i think
 function colorchange(){
   if (body.style.backgroundColor!="black"){
     body.style.backgroundColor="black"
@@ -491,6 +502,7 @@ function colorchange(){
   }
   
 }
+//sprite used in boss fight character
 let currentSprite = "";
 
 // prevents reloading same image every frame
@@ -560,7 +572,7 @@ function bossFight(){
       }
     }
     
-    // 🎯 SPRITE LOGIC
+    //  SPRITE LOGIC
     if (!onGround) {
       // JUMPING (overrides everything)
       if (right) {
@@ -681,22 +693,22 @@ function addValue(){
       hornetBtn.style.transform="scale(1)"
       hornetBtnNew.style.transform="scale(1)"
     }, 140)
-  console.log(roseValue)
   if (hornetBtnNew != null){
     hornetBtnNew.style.display = "none"
   }
-  
+  //changes the button
   hornetBtn.style.display = "none"
   randomBtn = Math.floor(Math.random() * btnList.length)
   hornetBtnNew = btnList[randomBtn]
   hornetBtnNew.style.display = "block"
+  //plays a funny audio if noise mode is enabled
   if (noiseMode){
     randomHorn = soundList[Math.floor(Math.random()*(soundList.length))]
     audioHorn = new Audio(src=randomHorn)
     audioHorn.play()
   }
 }
-
+//extension for particle effects from addValue
 function spawnParticles() {
   const activeButton = hornetBtnNew || hornetBtn
   const btnRect = activeButton.getBoundingClientRect()
@@ -760,66 +772,67 @@ function spawnParticles() {
     }, 1000)
   }
 }
+//function to add and manage the throwy tool
 function throwy(){
-  if (roseValue >= throwerCost){
-
-    if(!thrower){
-      thrower = setInterval(() =>{
-        roseValue += throwerCount + ((paleOilCount * 3)*throwerCount)
-        rps += throwerCount + ((paleOilCount * 3)*throwerCount)
+  if (roseValue >= costs[0]){
+    if(!actives[0]){
+      actives[0] = setInterval(() =>{
+        roseValue += (((counts[3]) * 3)+counts[0])
+        rps += (((counts[3]) * 3)+counts[0])
       },1000)
     }
 
-    throwerCount += 1
-    roseValue -= throwerCost
-    throwerCost = Math.trunc(throwerCost * 1.1)
 
+    counts[0] += 1
+    roseValue -= costs[0]
+    costs[0] = Math.trunc(costs[0] * 1.1)
+    console.log(counts[0])
     lighttool.textContent =
-      `Get a Light Throwing Tool that gets you 1 Rosarie per second! Cost: ${throwerCost} Rosaries`
+      `Get a Light Throwing Tool that gets you 1 Rosarie per second! Cost: ${costs[0]} Rosaries`
   }
 }
-
+//function to add and manage the sharpened tool
 function sharpened(){
-  if (roseValue >= sharpCost){
+  if (roseValue >= costs[1]){
 
-    if(!sharp){
-      sharp = setInterval(() =>{
-        roseValue += (5*sharpCount) * sharpenMultiplier + ((paleOilCount * 3)*sharpCount)
-        rps += (5*sharpCount)*sharpenMultiplier + ((paleOilCount * 3)*sharpCount)
+    if(!actives[1]){
+      actives[1] = setInterval(() =>{
+        roseValue += (5*counts[1]) * sharpenMultiplier + ((counts[3] * 3)*counts[1])
+        rps += (5*counts[1])*sharpenMultiplier + ((counts[3] * 3)*counts[1])
       },1000)
     }
 
-    sharpCount += 1
-    roseValue -= sharpCost
-    sharpCost = Math.trunc(sharpCost * 1.1)
-
+    counts[1] += 1
+    roseValue -= costs[1]
+    costs[1] = Math.trunc(costs[1] * 1.1)
     sharpen.textContent =
-      `Get your Nail to slash attack the button for ${5*sharpenMultiplier} Rosaries a second! Cost: ${sharpCost} Rosaries`
+      `Get your Nail to slash attack the button for ${5*sharpenMultiplier} Rosaries a second! Cost: ${costs[1]} Rosaries`
   }
 }
+//function to add and manage the threefold tool
 function threefoldfunc(){
-  if (roseValue >= threefoldCost){
+  if (roseValue >= costs[2]){
 
-    if(!threefold){
-      threefold = setInterval(() =>{
-        roseValue += 5*threefoldCount + (((paleOilCount * 1)*threefoldCount))
-        rps += 5*threefoldCount + (((paleOilCount * 1)*threefoldCount))
+    if(!actives[2]){
+      actives[2] = setInterval(() =>{
+        roseValue += 5*counts[2] + (((counts[3] * 1)*counts[2]))
+        rps += 5*counts[2] + (((counts[3] * 1)*counts[2]))
       },333)
     }
 
-    threefoldCount += 1
-    roseValue -= threefoldCost
-    threefoldCost = Math.trunc(threefoldCost * 1.1)
-
-    threefoldBtn.textContent = `Get your Threefold Pin and throw pins at the button for 15 Rosaries a second! Cost: ${threefoldCost} Rosaries`
+    counts[2] += 1
+    roseValue -= costs[2]
+    costs[2] = Math.trunc(costs[2] * 1.1)
+    threefoldBtn.textContent = `Get your Threefold Pin and throw pins at the button for 15 Rosaries a second! Cost: ${costs[2]} Rosaries`
   }
 }
+//function to add and manage the pale oil tool
 function paleOilFunc(){
-  if (roseValue >= paleOilCost){
-    paleOilCount += 1
-    roseValue -= paleOilCost
-    paleOilCost = Math.trunc(paleOilCost * 1.65)
-
-    paleOil.textContent = `Get your Pale Oil to *BUFF* every one of your tools by +3 Rosaries! Cost: ${paleOilCost} Rosaries`
+  if (roseValue >= costs[3]){
+    counts[3] += 1
+    roseValue -= costs[3]
+    costs[3] = Math.trunc(costs[3] * 1.65)
+    costs[3] = paleOilCost
+    paleOil.textContent = `Get your Pale Oil to *BUFF* every one of your tools by +3 Rosaries! Cost: ${costs[3]} Rosaries`
   }
 }
