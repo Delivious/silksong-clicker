@@ -562,7 +562,7 @@ function bossFight(){
     
     // 🎯 SPRITE LOGIC
     if (!onGround) {
-      // JUMPING (overrides everything except maybe crouch if you want)
+      // JUMPING (overrides everything)
       if (right) {
         setSprite("assets/jumpright.gif");
       } else if (left) {
