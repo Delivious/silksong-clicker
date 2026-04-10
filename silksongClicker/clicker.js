@@ -119,7 +119,7 @@ function spawnShanks() {
   if (randomNum) {
     const shank = document.createElement("img");
     shank.classList.add("shank");
-
+    const direction = 1;
     // prefer a global THESHANKS array if provided, otherwise use the three images in ./THESHANKS/
     const defaultDir = "THESHANKS";
     const defaultFiles = [
@@ -137,6 +137,7 @@ function spawnShanks() {
     shank.src = shankChoices[Math.floor(Math.random() * shankChoices.length)];
     shank.alt = "shank";
     shank.style.zIndex = "1000000000000000";
+    shank.id = "shank"
     // ensure positioning works even if .shank CSS doesn't set position
     shank.style.position = "fixed";
     shank.style.left = `${Math.random() * 90}vw`; // keep inside viewport
@@ -149,58 +150,44 @@ function spawnShanks() {
     funnyGuyBounce(shank);
     setInterval(() => {
       if (shank) {
-        funnyGuyBounce(shank);
+        funnyGuyBounce(shank, direction);
+        
       }
     }, 500);
   }
 }
-function funnyGuyBounce(shank){
+// ...existing code...
+function funnyGuyBounce(shank, direction){
+  // deterministic single-rAF bounce + rotation; no setInterval inside rAF
   const bounceHeight = 20;
-  const bounceDuration = 500;
+  const bounceDuration = 500; // ms
+  const maxRotate = 12; // degrees
   const start = performance.now();
-  let left = true
-  let rotation = 0;
-  let rotateValue = 5
-
-  function bounce(timestamp) {
+  // random rotation direction
+  let rot = 5 * direction;
+  function step(timestamp) {
     const elapsed = timestamp - start;
-    const progress = Math.min(elapsed / bounceDuration, 1);
-    const y = Math.sin(progress * Math.PI) * bounceHeight;
+    const t = Math.min(elapsed / bounceDuration, 1); // normalized 0..1
 
-    shank.style.transform = `translateY(-${y}px)`;
-    if (progress < 1) {
-      requestAnimationFrame(bounce);
-    }
-    if (left) {
-      setInterval(() => {
-        shank.style.transform = `rotate(${rotation}deg)`;
-        rotation -= rotateValue;
-      }, 50);
-      setTimeout(() => {
-        rotateValue = -5
-        setTimeout(() => {
-          rotateValue = 5
-          left = false
-        }, 250);
-      }, 250);
+    // smooth vertical bounce (sine) and rotational oscillation (sine)
+    const y = Math.sin(t * Math.PI) * bounceHeight;
+    rot += direction;
+
+    shank.style.transform = `translateY(-${y}px) rotate(${rot}deg)`;
+    
+    if (t < 1) {
+      requestAnimationFrame(step);
+      
     } else {
-      setInterval(() => {
-        shank.style.transform = `rotate(${rotation}deg)`;
-        rotation += rotateValue;
-      }, 50);
-      setTimeout(() => {
-        rotateValue = -5
-        setTimeout(() => {
-          rotateValue = 5
-          left = false
-        }, 250);
-      }, 250);
+      // ensure clean final state
+      shank.style.transform = `translateY(0px) rotate(0deg)`;
+      // reverse direction for next bounce
+      direction *= -1;
     }
   }
 
-  requestAnimationFrame(bounce);
+  requestAnimationFrame(step);
 }
-
 //Changes background color of upgrade menu (top right)
 function updateBackgroundColors() {
   //variables

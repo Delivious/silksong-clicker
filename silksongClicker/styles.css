@@ -690,3 +690,6 @@
     z-index: 100001;
     height: 11%;
 }
+#shank{
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
