@@ -707,26 +707,26 @@ function bossFight(){
 
   },16);
   setInterval(()=>{
-    const positionLeft = character.getBoundingClientRect().left;
-    const positionRight = character.getBoundingClientRect().right;
-    const positionTop = character.getBoundingClientRect().top;
+    let positionLeft = character.getBoundingClientRect().left;
+    let positionRight = character.getBoundingClientRect().right;
+    let positionTop = character.getBoundingClientRect().top;
     if (keys["e"] && !ifPressed){
       ifPressed = true
       newDiv = document.createElement("div")
       console.log("E key pressed")
       newDiv.style.backgroundColor = "red"
-      newDiv.style.width = "50px"
+      newDiv.style.width = "85px"
       newDiv.style.height = "50px"
-      newDiv.style.zIndex = 100000000000000000000000000000000000000
+      newDiv.style.zIndex = "100000000000000000000000000000000000000"
       if(right){
         newDiv.style.position = "absolute";
-        newDiv.style.left = `${positionRight + -20}px`;
-        newDiv.style.top = `${y}px`;
+        newDiv.style.left = `${positionRight + -75}px`;
+        newDiv.style.top = `${positionTop+85}px`;
       }
       else if(left){
         newDiv.style.position = "absolute";
-        newDiv.style.left = `${positionLeft - 10}px`;
-        newDiv.style.top = `${y}px`;
+        newDiv.style.left = `${positionLeft-25}px`;
+        newDiv.style.top = `${positionTop+85}px`;
       }
       document.body.appendChild(newDiv)
       setTimeout(() => {
