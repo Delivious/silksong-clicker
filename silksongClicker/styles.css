@@ -6,6 +6,18 @@
     max-width: 36%;
     text-shadow: 5px 5px 10px rgba(0,0,0,.15), -5px -5px 10px rgba(255,255,255,0.6);
 }
+#bossGuy{
+  color: white;
+  position: fixed;
+  top:50%;
+  width: 25%;
+  height: 25%;
+  right:13.5%;
+  font-size: 200%;
+  display: none;
+  z-index: 100002;
+
+}
 #body1{
     background-image: url("./assets/background2.png");
     background-repeat: no-repeat;

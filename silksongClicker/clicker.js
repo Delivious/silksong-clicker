@@ -1,6 +1,7 @@
 //variables
 const rebirthBtnToRebirth = document.querySelector("#rebirthBtnToRebirth")
 const skill1 = document.querySelector("#skill1")
+const bossBody = document.createElement("img")
 const skill2 = document.querySelector("#skill2")
 const skill3 = document.querySelector("#skill3")
 const skill4 = document.querySelector("#skill4")
@@ -119,7 +120,7 @@ function spawnShanks() {
   if (randomNum) {
     const shank = document.createElement("img");
     shank.classList.add("shank");
-    const direction = 1;
+    let direction = 0.5;
     // prefer a global THESHANKS array if provided, otherwise use the three images in ./THESHANKS/
     const defaultDir = "THESHANKS";
     const defaultFiles = [
@@ -150,16 +151,16 @@ function spawnShanks() {
     funnyGuyBounce(shank);
     setInterval(() => {
       if (shank) {
+        direction *= -1;
         funnyGuyBounce(shank, direction);
         
       }
     }, 500);
   }
 }
-// ...existing code...
 function funnyGuyBounce(shank, direction){
   // deterministic single-rAF bounce + rotation; no setInterval inside rAF
-  const bounceHeight = 20;
+  const bounceHeight = 40;
   const bounceDuration = 500; // ms
   const maxRotate = 12; // degrees
   const start = performance.now();
@@ -178,11 +179,12 @@ function funnyGuyBounce(shank, direction){
     if (t < 1) {
       requestAnimationFrame(step);
       
+      
     } else {
       // ensure clean final state
       shank.style.transform = `translateY(0px) rotate(0deg)`;
       // reverse direction for next bounce
-      direction *= -1;
+      
     }
   }
 
@@ -449,6 +451,7 @@ arenaBtn.addEventListener("click", ()=>{
     bossArena.style.display = "none"
     bossArenaMain.style.display = "none"
     character.style.display = "none"
+    bossBody.style.display = "none"
     clearInterval(move)
   }
 })
@@ -588,8 +591,17 @@ function setSprite(src){
 }
 
 function bossFight(){
+  
+  bossBody.src = "assets/bosstest.png"
+  bossBody.id = "bossGuy"
+  document.body.appendChild(bossBody)
+  bossBody.style.display = "block"
+  function bossController(){
+    bossBody.style.display = "block"
+}
   let ifPressed = false
   let newDiv = null
+  let hit = false
   move = setInterval(()=>{
 
     moving = false; // reset every frame  
@@ -618,17 +630,11 @@ function bossFight(){
     }
 
     if(keys["s"]){
-      if (newDiv) {
-        newDiv.style.transform = `translate(${moveX}px, ${y}px)`;
-      }
       y += moveY;
       crouch = true;
     }
 
     if(keys["d"]) {
-      if (newDiv) {
-        newDiv.style.transform = `translate(${moveX}px, ${y}px)`;
-      }
       x += moveX;
       left = false;
       right = true;
@@ -665,9 +671,6 @@ function bossFight(){
         moveX = 0;
       }
       
-    }
-    if (newDiv) {
-      newDiv.style.transform = `translate(${moveX}px, ${y}px)`;
     }
 
     //  SPRITE LOGIC
@@ -715,17 +718,17 @@ function bossFight(){
       console.log("E key pressed")
       newDiv.style.backgroundColor = "red"
       newDiv.style.width = "85px"
-      newDiv.style.height = "50px"
+      newDiv.style.height = "90px"
       newDiv.style.zIndex = "100000000000000000000000000000000000000"
       if(right){
         newDiv.style.position = "absolute";
         newDiv.style.left = `${positionRight + -75}px`;
-        newDiv.style.top = `${positionTop+85}px`;
+        newDiv.style.top = `${positionTop + 20}px`;
       }
       else if(left){
         newDiv.style.position = "absolute";
         newDiv.style.left = `${positionLeft-25}px`;
-        newDiv.style.top = `${positionTop+85}px`;
+        newDiv.style.top = `${positionTop + 20}px`;
       }
       document.body.appendChild(newDiv)
       setTimeout(() => {
@@ -733,7 +736,28 @@ function bossFight(){
         ifPressed = false
       }, 200);
     }
+    if(newDiv && isColliding(newDiv, bossBody) && !hit){
+      // Handle collision with boss
+      bossHealth += -1
+      console.log(`Boss Health: ${bossHealth}`)
+      hit = true
+      setTimeout(() => {
+        hit = false
+      }, 200);
+    }
   }, 1);
+  bossController()
+}
+function isColliding(el1, el2) {
+    const rect1 = el1.getBoundingClientRect();
+    const rect2 = el2.getBoundingClientRect();
+
+    return !(
+        rect1.top > rect2.bottom ||
+        rect1.bottom < rect2.top ||
+        rect1.left > rect2.right ||
+        rect1.right < rect2.left
+    );
 }
 
 function addValue(){
