@@ -121,9 +121,11 @@ function spawnShanks() {
   // prefer a global THESHANKS array if provided, otherwise use the three images in ./THESHANKS/
   const defaultDir = "THESHANKS";
   const defaultFiles = [
-    `${defaultDir}/ninjashanks.png`,
-    `${defaultDir}/tabbycatshanks.png`,
-    `${defaultDir}/v1shanks.png`
+    `${defaultDir}/ninjashanks.png`, //he steals all the upgrades and sells them to you at half price
+    `${defaultDir}/tabbycatshanks.png`, //kitty cat finds and give you your worth in rosearys from 10 minutes
+    `${defaultDir}/v1shanks.png`, //speed buff
+    `${defaultDir}/unfinishedgojo.png`, //damage buff
+    `${defaultDir}/normalshanks.png` //x2 multi
   ];
 
   const shankChoices = (typeof THESHANKS !== "undefined" && Array.isArray(THESHANKS) && THESHANKS.length > 0)
