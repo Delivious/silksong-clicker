@@ -114,6 +114,37 @@ let clickcost=500
 let lofiBeat = null
 let canPlay = true
 let crouch=false
+function spawnShanks() {
+  const shank = document.createElement("img");
+  shank.classList.add("shank");
+
+  // prefer a global THESHANKS array if provided, otherwise use the three images in ./THESHANKS/
+  const defaultDir = "THESHANKS";
+  const defaultFiles = [
+    `${defaultDir}/ninjashanks.png`, //he steals all the upgrades and sells them to you at half price
+    `${defaultDir}/tabbycatshanks.png`, //kitty cat finds and give you your worth in rosearys from 10 minutes
+    `${defaultDir}/v1shanks.png`, //speed buff
+    `${defaultDir}/unfinishedgojo.png`, //damage buff
+    `${defaultDir}/normalshanks.png` //x2 multi
+  ];
+
+  const shankChoices = (typeof THESHANKS !== "undefined" && Array.isArray(THESHANKS) && THESHANKS.length > 0)
+    ? THESHANKS
+    : defaultFiles;
+
+  shank.src = shankChoices[Math.floor(Math.random() * shankChoices.length)];
+  shank.alt = "shank";
+  // ensure positioning works even if .shank CSS doesn't set position
+  shank.style.position = "fixed";
+  shank.style.left = `${Math.random() * 90}vw`; // keep inside viewport
+  shank.style.top = `${Math.random() * 90}vh`;
+  shank.style.pointerEvents = "none";
+  document.body.appendChild(shank);
+
+  setTimeout(() => {
+    shank.remove();
+  }, 5000);
+}
 //Changes background color of upgrade menu (top right)
 function updateBackgroundColors() {
   //variables
@@ -586,7 +617,7 @@ function bossFight(){
 
     //  SPRITE LOGIC
     if (!onGround) {
-      // JUMPING (overrides everything except maybe crouch if you want)
+      // JUMPING (overrides everything)
       if (right) {
         setSprite("assets/jumpright.gif");
       } else if (left) {
@@ -653,6 +684,7 @@ function bossFight(){
 function addValue(){
   // spawn before we hide/swap the button so particles originate from
   // the image the user actually clicked
+  spawnShanks()
   spawnParticles()
   if (rebirthCount == 0){
     roseValue+=multiplier *rebirthMultiplier + Math.floor(((rpsRebirth + rpsPercent) * rpsPrevious))
