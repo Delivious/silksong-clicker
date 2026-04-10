@@ -553,8 +553,20 @@ function bossFight(){
     crouch = false;
 
     if(keys["a"]){
-      if (newDiv) {
-        newDiv.style.transform = `translate(${moveX}px, ${y}px)`;
+      let positionLeft = character.getBoundingClientRect().left;
+      let positionRight = character.getBoundingClientRect().right;
+      let positionTop = character.getBoundingClientRect().top;
+      if (keys["e"] && !ifPressed){
+        ifPressed = true
+        newDiv = document.createElement("div")
+        console.log("E key pressed")
+        newDiv.style.backgroundColor = "red"
+        newDiv.style.width = "85px"
+        newDiv.style.height = "50px"
+        newDiv.style.zIndex = "100000000000000000000000000000000000000"
+        newDiv.style.position = "absolute";
+        newDiv.style.left = `${positionRight + -75}px`;
+        newDiv.style.top = `${positionTop+85}px`;
       }
       x -= moveX;
       left = true;
@@ -676,7 +688,7 @@ function bossFight(){
       setTimeout(() => {
         newDiv.remove()
         ifPressed = false
-      }, 500);
+      }, 200);
     }
   }, 1);
 }
