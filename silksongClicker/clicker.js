@@ -514,12 +514,17 @@ function setSprite(src){
 }
 
 function bossFight(){
+  let ifPressed = false
+  let newDiv = null
   move = setInterval(()=>{
 
     moving = false; // reset every frame  
     crouch = false;
 
     if(keys["a"]){
+      if (newDiv) {
+        newDiv.style.transform = `translate(${moveX}px, ${y}px)`;
+      }
       x -= moveX;
       left = true;
       right = false;
@@ -527,25 +532,27 @@ function bossFight(){
     }
 
     if(keys["s"]){
+      if (newDiv) {
+        newDiv.style.transform = `translate(${moveX}px, ${y}px)`;
+      }
       y += moveY;
       crouch = true;
     }
 
     if(keys["d"]) {
+      if (newDiv) {
+        newDiv.style.transform = `translate(${moveX}px, ${y}px)`;
+      }
       x += moveX;
       left = false;
       right = true;
       moving = true;
     }
 
-    if (keys["e"]){
-      character.style.transform = `translate(${x}px, ${y}px) scale(1.5)`
-      setTimeout(() => {
-        character.style.transform = `translate(${x}px, ${y}px) scale(1)`
-      }, 500);
-    }
-
     if(keys["w"] && onGround){
+      if (newDiv) {
+        
+      }
       velocityY = -20;
       onGround = false;
     }
@@ -564,14 +571,19 @@ function bossFight(){
       moveX += 1;
       if (moveX >= 4){
         moveX = 4;
+        
       }
     } else {
       moveX -= 1;
       if (moveX <= 0){
         moveX = 0;
       }
+      
     }
-    
+    if (newDiv) {
+      newDiv.style.transform = `translate(${moveX}px, ${y}px)`;
+    }
+
     //  SPRITE LOGIC
     if (!onGround) {
       // JUMPING (overrides everything except maybe crouch if you want)
@@ -607,6 +619,35 @@ function bossFight(){
     character.style.transform = `translate(${x}px, ${y}px)`;
 
   },16);
+  setInterval(()=>{
+    const positionLeft = character.getBoundingClientRect().left;
+    const positionRight = character.getBoundingClientRect().right;
+    const positionTop = character.getBoundingClientRect().top;
+    if (keys["e"] && !ifPressed){
+      ifPressed = true
+      newDiv = document.createElement("div")
+      console.log("E key pressed")
+      newDiv.style.backgroundColor = "red"
+      newDiv.style.width = "50px"
+      newDiv.style.height = "50px"
+      newDiv.style.zIndex = 100000000000000000000000000000000000000
+      if(right){
+        newDiv.style.position = "absolute";
+        newDiv.style.left = `${positionRight + -20}px`;
+        newDiv.style.top = `${y}px`;
+      }
+      else if(left){
+        newDiv.style.position = "absolute";
+        newDiv.style.left = `${positionLeft - 10}px`;
+        newDiv.style.top = `${y}px`;
+      }
+      document.body.appendChild(newDiv)
+      setTimeout(() => {
+        newDiv.remove()
+        ifPressed = false
+      }, 500);
+    }
+  }, 1);
 }
 
 function addValue(){
