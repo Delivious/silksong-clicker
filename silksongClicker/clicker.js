@@ -115,36 +115,92 @@ let lofiBeat = null
 let canPlay = true
 let crouch=false
 function spawnShanks() {
-  const shank = document.createElement("img");
-  shank.classList.add("shank");
+  const randomNum = Math.floor(Math.random() * 1000);
+  if (randomNum) {
+    const shank = document.createElement("img");
+    shank.classList.add("shank");
 
-  // prefer a global THESHANKS array if provided, otherwise use the three images in ./THESHANKS/
-  const defaultDir = "THESHANKS";
-  const defaultFiles = [
-    `${defaultDir}/ninjashanks.png`, //he steals all the upgrades and sells them to you at half price
-    `${defaultDir}/tabbycatshanks.png`, //kitty cat finds and give you your worth in rosearys from 10 minutes
-    `${defaultDir}/v1shanks.png`, //speed buff
-    `${defaultDir}/unfinishedgojo.png`, //damage buff
-    `${defaultDir}/normalshanks.png` //x2 multi
-  ];
+    // prefer a global THESHANKS array if provided, otherwise use the three images in ./THESHANKS/
+    const defaultDir = "THESHANKS";
+    const defaultFiles = [
+      `${defaultDir}/ninjashanks.png`, //he steals all the upgrades and sells them to you at half price
+      `${defaultDir}/tabbycatshanks.png`, //kitty cat finds and give you your worth in rosearys from 10 minutes
+      `${defaultDir}/v1shanks.png`, //speed buff
+      `${defaultDir}/unfinishedgojo.png`, //damage buff
+      `${defaultDir}/normalshanks.png` //x2 multi
+    ];
 
-  const shankChoices = (typeof THESHANKS !== "undefined" && Array.isArray(THESHANKS) && THESHANKS.length > 0)
-    ? THESHANKS
-    : defaultFiles;
+    const shankChoices = (typeof THESHANKS !== "undefined" && Array.isArray(THESHANKS) && THESHANKS.length > 0)
+      ? THESHANKS
+      : defaultFiles;
 
-  shank.src = shankChoices[Math.floor(Math.random() * shankChoices.length)];
-  shank.alt = "shank";
-  // ensure positioning works even if .shank CSS doesn't set position
-  shank.style.position = "fixed";
-  shank.style.left = `${Math.random() * 90}vw`; // keep inside viewport
-  shank.style.top = `${Math.random() * 90}vh`;
-  shank.style.pointerEvents = "none";
-  document.body.appendChild(shank);
-
-  setTimeout(() => {
-    shank.remove();
-  }, 5000);
+    shank.src = shankChoices[Math.floor(Math.random() * shankChoices.length)];
+    shank.alt = "shank";
+    shank.style.zIndex = "1000000000000000";
+    // ensure positioning works even if .shank CSS doesn't set position
+    shank.style.position = "fixed";
+    shank.style.left = `${Math.random() * 90}vw`; // keep inside viewport
+    shank.style.top = `${Math.random() * 90}vh`;
+    shank.style.pointerEvents = "none";
+    document.body.appendChild(shank);
+    setTimeout(() => {
+      shank.remove();
+    }, 15000);
+    funnyGuyBounce(shank);
+    setInterval(() => {
+      if (shank) {
+        funnyGuyBounce(shank);
+      }
+    }, 500);
+  }
 }
+function funnyGuyBounce(shank){
+  const bounceHeight = 20;
+  const bounceDuration = 500;
+  const start = performance.now();
+  let left = true
+  let rotation = 0;
+  let rotateValue = 5
+
+  function bounce(timestamp) {
+    const elapsed = timestamp - start;
+    const progress = Math.min(elapsed / bounceDuration, 1);
+    const y = Math.sin(progress * Math.PI) * bounceHeight;
+
+    shank.style.transform = `translateY(-${y}px)`;
+    if (progress < 1) {
+      requestAnimationFrame(bounce);
+    }
+    if (left) {
+      setInterval(() => {
+        shank.style.transform = `rotate(${rotation}deg)`;
+        rotation -= rotateValue;
+      }, 50);
+      setTimeout(() => {
+        rotateValue = -5
+        setTimeout(() => {
+          rotateValue = 5
+          left = false
+        }, 250);
+      }, 250);
+    } else {
+      setInterval(() => {
+        shank.style.transform = `rotate(${rotation}deg)`;
+        rotation += rotateValue;
+      }, 50);
+      setTimeout(() => {
+        rotateValue = -5
+        setTimeout(() => {
+          rotateValue = 5
+          left = false
+        }, 250);
+      }, 250);
+    }
+  }
+
+  requestAnimationFrame(bounce);
+}
+
 //Changes background color of upgrade menu (top right)
 function updateBackgroundColors() {
   //variables
