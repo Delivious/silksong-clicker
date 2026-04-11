@@ -704,4 +704,20 @@
 }
 #shank{
     transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    
+}
+#shank:hover{
+    cursor: pointer;
+    
+}
+#shankHeader{
+    position: fixed;
+    top: 10px;
+    left: 5%;
+    color: white;
+    z-index: 100002;
+    width: 90%;
+    text-align: center;
+    color: red;
+    pointer-events: none;
 }

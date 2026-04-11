@@ -149,8 +149,8 @@ function spawnShanks() {
     shank.style.position = "fixed";
     shank.style.left = `${Math.random() * 90}vw`; // keep inside viewport
     shank.style.top = `${Math.random() * 90}vh`;
-    shank.style.pointerEvents = "none";
-    shank.addEventListener("click", clickShanks(shanksSrc, shank));
+    shank.style.pointerEvents = "auto"; // allow clicking
+    shank.addEventListener("click", clickShanks.bind(null, shanksSrc, shank));
     document.body.appendChild(shank);
     setTimeout(() => {
       shank.remove();
@@ -173,9 +173,7 @@ function clickShanks(src, shank) {
       priceMultiplier = 0.5
       const globalHeader = document.createElement("h2")
       globalHeader.textContent = "Ninja Shanks has stolen the upgrades! They cost half as much to get back for the next minute!"
-      globalHeader.style.position = "fixed"
-      globalHeader.style.top = "10px"
-      globalHeader.style.left = "50%"
+      globalHeader.id = "shankHeader"
       setTimeout(() => {
         priceMultiplier = 1
         globalHeader.remove()
@@ -195,9 +193,7 @@ function clickShanks(src, shank) {
     "tabbycatshanks": () => {
       const globalHeader = document.createElement("h2")
       globalHeader.textContent = "Tabby Cat Shanks has searched far and wide for your worth in Rosaries! You gain 10 minutes worth of Rosaries!"
-      globalHeader.style.position = "fixed"
-      globalHeader.style.top = "10px"
-      globalHeader.style.left = "50%"
+      globalHeader.id = "shankHeader"
       roseValue += rps * 600
       setTimeout(() => {
         
@@ -208,9 +204,7 @@ function clickShanks(src, shank) {
     "v1shanks": () => {
       const globalHeader = document.createElement("h2")
       globalHeader.textContent = "V1 Shanks has granted his agility! Your speed in the boss arena is doubled for the next 5 minutes!"
-      globalHeader.style.position = "fixed"
-      globalHeader.style.top = "10px"
-      globalHeader.style.left = "50%"
+      globalHeader.id = "shankHeader"
       speedMultiplier = 2
       setTimeout(() => {
         speedMultiplier = 1
@@ -221,9 +215,7 @@ function clickShanks(src, shank) {
   "unfinishedgojo": () => {
       const globalHeader = document.createElement("h2")
       globalHeader.textContent = "Gojo has granted his cursed energy! Your damage in the boss arena is doubled for the next 5 minutes!"
-      globalHeader.style.position = "fixed"
-      globalHeader.style.top = "10px"
-      globalHeader.style.left = "50%"
+      globalHeader.id = "shankHeader"
       damageMultiplier = 2
       setTimeout(() => {
         damageMultiplier = 1
@@ -234,9 +226,7 @@ function clickShanks(src, shank) {
   "normalshanks": () => {
       const globalHeader = document.createElement("h2")
       globalHeader.textContent = "Shanks has granted you his wealth! Your currency is doubled for the next 5 minutes!"
-      globalHeader.style.position = "fixed"
-      globalHeader.style.top = "10px"
-      globalHeader.style.left = "50%"
+      globalHeader.id = "shankHeader"
       currencyMultiplier = 2
       setTimeout(() => {
         currencyMultiplier = 1
@@ -681,6 +671,8 @@ function setSprite(src){
 }
 
 function bossFight(){
+  let playerHealth = 5
+  let playerhit = false
   bossHealth = 100
   bossBody.src = "assets/bosstest.png"
   bossBody.id = "bossGuy"
@@ -694,21 +686,7 @@ function bossFight(){
     crouch = false;
 
     if(keys["a"]){
-      let positionLeft = character.getBoundingClientRect().left;
-      let positionRight = character.getBoundingClientRect().right;
-      let positionTop = character.getBoundingClientRect().top;
-      if (keys["e"] && !ifPressed){
-        ifPressed = true
-        newDiv = document.createElement("div")
-        console.log("E key pressed")
-        newDiv.style.backgroundColor = "red"
-        newDiv.style.width = "85px"
-        newDiv.style.height = "50px"
-        newDiv.style.zIndex = "100000000000000000000000000000000000000"
-        newDiv.style.position = "absolute";
-        newDiv.style.left = `${positionRight + -75}px`;
-        newDiv.style.top = `${positionTop+85}px`;
-      }
+      
       x -= moveX * speedMultiplier;
       left = true;
       right = false;
@@ -762,6 +740,13 @@ function bossFight(){
       bossHealth = 0
       bossBody.style.display = "none"
     }
+    if (playerHealth <= 0) {
+      // Handle player defeat (e.g., reset fight, show game over, etc.)
+      alert("You have been defeated! Try again.");
+      playerHealth = 5; // Reset player health
+      bossHealth = 100; // Reset boss health
+      // Reset player and boss states as needed
+    }
     //  SPRITE LOGIC
     if (!onGround) {
       // JUMPING (overrides everything)
@@ -795,7 +780,15 @@ function bossFight(){
 
     // APPLY POSITION
     character.style.transform = `translate(${x}px, ${y}px)`;
-
+    character.id = "character"
+    if (isColliding(character, bossBody) && !playerhit){
+      playerhit = true
+      playerHealth -= 1
+      console.log(`Player Health: ${playerHealth}`)
+      setTimeout(() => {
+        playerhit = false
+      },2000)
+    }
   },16);
   setInterval(()=>{
     let positionLeft = character.getBoundingClientRect().left;
@@ -811,21 +804,21 @@ function bossFight(){
       newDiv.style.height = "90px"
       newDiv.style.zIndex = "100000000000000000000000000000000000000"
       if (!onGround ){
-        newDiv.style.position = "absolute";
+        newDiv.style.position = "fixed";
         newDiv.style.left = `${positionLeft + 75}px`;
         newDiv.style.top = `${positionBottom - 40}px`;
         
 
       }
       else if(right){
-        newDiv.style.position = "absolute";
+        newDiv.style.position = "fixed";
         newDiv.style.left = `${positionRight + -75}px`;
-        newDiv.style.top = `${positionTop + 20}px`;
+        newDiv.style.top = `${positionBottom + -150}px`;
       }
       else if(left){
-        newDiv.style.position = "absolute";
+        newDiv.style.position = "fixed";
         newDiv.style.left = `${positionLeft-25}px`;
-        newDiv.style.top = `${positionTop + 20}px`;
+        newDiv.style.top = `${positionBottom + -150}px`;
       }
       document.body.appendChild(newDiv)
       setTimeout(() => {
@@ -851,9 +844,8 @@ function bossFight(){
   
 }
 function isColliding(el1, el2) {
-    const rect1 = el1.getBoundingClientRect();
-    const rect2 = el2.getBoundingClientRect();
-
+    let rect1 = el1.getBoundingClientRect();
+    let rect2 = el2.getBoundingClientRect();
     return !(
         rect1.top > rect2.bottom ||
         rect1.bottom < rect2.top ||
