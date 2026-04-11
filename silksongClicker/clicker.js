@@ -76,6 +76,7 @@ let spaceCounter=0
 let displayMenu = false
 let bossHealth = 0
 let purchase1 = false
+let newDivGlobal = null
 let purchase2 = false
 let purchase3 = false
 let purchase4 = false
@@ -115,6 +116,10 @@ let clickcost=500
 let lofiBeat = null
 let canPlay = true
 let crouch=false
+let priceMultiplier = 1
+let damageMultiplier = 1
+let speedMultiplier = 1
+let currencyMultiplier = 1
 function spawnShanks() {
   const randomNum = Math.floor(Math.random() * 1000);
   if (randomNum) {
@@ -136,6 +141,7 @@ function spawnShanks() {
       : defaultFiles;
 
     shank.src = shankChoices[Math.floor(Math.random() * shankChoices.length)];
+    const shanksSrc = shank.src.split("/").pop().split(".")[0]; // get filename without extension
     shank.alt = "shank";
     shank.style.zIndex = "1000000000000000";
     shank.id = "shank"
@@ -144,6 +150,7 @@ function spawnShanks() {
     shank.style.left = `${Math.random() * 90}vw`; // keep inside viewport
     shank.style.top = `${Math.random() * 90}vh`;
     shank.style.pointerEvents = "none";
+    shank.addEventListener("click", clickShanks(shanksSrc, shank));
     document.body.appendChild(shank);
     setTimeout(() => {
       shank.remove();
@@ -157,6 +164,88 @@ function spawnShanks() {
       }
     }, 500);
   }
+}
+function clickShanks(src, shank) {
+  // Handle shank click
+  shank.remove()
+  shankClicked={
+    "ninjashanks": () => {
+      priceMultiplier = 0.5
+      const globalHeader = document.createElement("h2")
+      globalHeader.textContent = "Ninja Shanks has stolen the upgrades! They cost half as much to get back for the next minute!"
+      globalHeader.style.position = "fixed"
+      globalHeader.style.top = "10px"
+      globalHeader.style.left = "50%"
+      setTimeout(() => {
+        priceMultiplier = 1
+        globalHeader.remove()
+        sharpen.textContent = `Get your Nail to slash attack the button for ${5*sharpenMultiplier} Rosaries a second! Cost: ${costs[1]*priceMultiplier} Rosaries`
+      lighttool.textContent =
+      `Get a Light Throwing Tool that gets you 1 Rosarie per second! Cost: ${costs[0]*priceMultiplier} Rosaries`
+      paleOil.textContent = `Get your Pale Oil to *BUFF* every one of your tools by +3 Rosaries! Cost: ${costs[3]*priceMultiplier} Rosaries` 
+      threefoldBtn.textContent = `Get your Threefold Pin and throw pins at the button for 15 Rosaries a second! Cost: ${costs[2]*priceMultiplier} Rosaries`
+      }, 60000)
+      sharpen.textContent = `Get your Nail to slash attack the button for ${5*sharpenMultiplier} Rosaries a second! Cost: ${costs[1]*priceMultiplier} Rosaries`
+      lighttool.textContent =
+      `Get a Light Throwing Tool that gets you 1 Rosarie per second! Cost: ${costs[0]*priceMultiplier} Rosaries`
+      paleOil.textContent = `Get your Pale Oil to *BUFF* every one of your tools by +3 Rosaries! Cost: ${costs[3]*priceMultiplier} Rosaries` 
+      threefoldBtn.textContent = `Get your Threefold Pin and throw pins at the button for 15 Rosaries a second! Cost: ${costs[2]*priceMultiplier} Rosaries`
+      document.body.appendChild(globalHeader)
+    },
+    "tabbycatshanks": () => {
+      const globalHeader = document.createElement("h2")
+      globalHeader.textContent = "Tabby Cat Shanks has searched far and wide for your worth in Rosaries! You gain 10 minutes worth of Rosaries!"
+      globalHeader.style.position = "fixed"
+      globalHeader.style.top = "10px"
+      globalHeader.style.left = "50%"
+      roseValue += rps * 600
+      setTimeout(() => {
+        
+        globalHeader.remove()
+      }, 5000)
+      document.body.appendChild(globalHeader)
+    },
+    "v1shanks": () => {
+      const globalHeader = document.createElement("h2")
+      globalHeader.textContent = "V1 Shanks has granted his agility! Your speed in the boss arena is doubled for the next 5 minutes!"
+      globalHeader.style.position = "fixed"
+      globalHeader.style.top = "10px"
+      globalHeader.style.left = "50%"
+      speedMultiplier = 2
+      setTimeout(() => {
+        speedMultiplier = 1
+        globalHeader.remove()
+      }, 300000)
+      document.body.appendChild(globalHeader)
+  },
+  "unfinishedgojo": () => {
+      const globalHeader = document.createElement("h2")
+      globalHeader.textContent = "Gojo has granted his cursed energy! Your damage in the boss arena is doubled for the next 5 minutes!"
+      globalHeader.style.position = "fixed"
+      globalHeader.style.top = "10px"
+      globalHeader.style.left = "50%"
+      damageMultiplier = 2
+      setTimeout(() => {
+        damageMultiplier = 1
+        globalHeader.remove()
+      }, 300000)
+      document.body.appendChild(globalHeader)
+  },
+  "normalshanks": () => {
+      const globalHeader = document.createElement("h2")
+      globalHeader.textContent = "Shanks has granted you his wealth! Your currency is doubled for the next 5 minutes!"
+      globalHeader.style.position = "fixed"
+      globalHeader.style.top = "10px"
+      globalHeader.style.left = "50%"
+      currencyMultiplier = 2
+      setTimeout(() => {
+        currencyMultiplier = 1
+        globalHeader.remove()
+      }, 300000)
+      document.body.appendChild(globalHeader)
+  }
+}
+  shankClicked[src]?.()
 }
 function funnyGuyBounce(shank, direction){
   // deterministic single-rAF bounce + rotation; no setInterval inside rAF
@@ -444,6 +533,7 @@ arenaBtn.addEventListener("click", ()=>{
     bossArena.style.display = "block"
     bossArenaMain.style.display = "block"
     character.style.display = "block"
+    bossBody.style.display = "block"
     bossFight()
   }
   //exits if you kill the boss
@@ -501,63 +591,63 @@ addEventListener("keydown",(e)=>{
 //upgrade event listeners
 upg1.addEventListener("click", () => {
   //checks if purchased and have enough for it
-  if (roseValue >= clickcost && !purchase1) {
-    roseValue -= clickcost
+  if (roseValue >= clickcost*priceMultiplier && !purchase1) {
+    roseValue -= clickcost*priceMultiplier
     upg1Img.src = "assets/mouse2.png"
     multiplier *= 2
     purchase1 = true
     clickcost *=2
   }
 
-  else if (roseValue >= clickcost && !purchase2) {
-    roseValue -= clickcost
+  else if (roseValue >= clickcost*priceMultiplier && !purchase2) {
+    roseValue -= clickcost*priceMultiplier
     upg1Img.src = "assets/mouse3.png"
     multiplier *= 2
     purchase2 = true
     clickcost *=2
   }
 
-  else if (roseValue >= clickcost && !purchase3) {
-    roseValue -= clickcost
+  else if (roseValue >= clickcost*priceMultiplier && !purchase3) {
+    roseValue -= clickcost*priceMultiplier
     upg1Img.src = "assets/mouse4.png"
     multiplier *= 2
     purchase3 = true
     clickcost *=2
   }
 
-  else if (roseValue >= clickcost && !purchase4) {
-    roseValue -= clickcost
+  else if (roseValue >= clickcost*priceMultiplier && !purchase4) {
+    roseValue -= clickcost*priceMultiplier
     upg1Img.src = "assets/mouse5.png"
     multiplier *= 2
     purchase4 = true
     clickcost *=2
   }
-  else if (roseValue >= clickcost && !purchase5) {
-    roseValue -= clickcost
+  else if (roseValue >= clickcost*priceMultiplier && !purchase5) {
+    roseValue -= clickcost*priceMultiplier
     upg1Img.src = "assets/mouse6.png"
     multiplier *= 2
     purchase5 = true
     clickcost *=2
   }
 
-  else if (roseValue >= clickcost && purchase5) {
-    roseValue -= clickcost
+  else if (roseValue >= clickcost*priceMultiplier && purchase5) {
+    roseValue -= clickcost*priceMultiplier
     upg1.style.display = "none"
     multiplier *= 2
   }
 
 })
 upg2.addEventListener("click", () => {
-  if (roseValue >= 1000) {
-    roseValue -= 1000
+  if (roseValue >= 1000*priceMultiplier) {
+    roseValue -= 1000*priceMultiplier
     upg2.style.display = "none"
     sharpenMultiplier+=1
-    sharpen.textContent = `Get your Nail to slash attack the button for ${5*sharpenMultiplier} Rosaries a second! Cost: ${costs[1]} Rosaries`
+    sharpen.textContent = `Get your Nail to slash attack the button for ${5*sharpenMultiplier} Rosaries a second! Cost: ${costs[1]*priceMultiplier} Rosaries`
   }
 })
 upg4.addEventListener("click", () => {
-  if (roseValue >= 2500) {
-    roseValue -= 2500
+  if (roseValue >= 2500*priceMultiplier) {
+    roseValue -= 2500*priceMultiplier
     upg4.style.display = "none"
     multiplier+=1
     
@@ -591,14 +681,10 @@ function setSprite(src){
 }
 
 function bossFight(){
-  
+  bossHealth = 100
   bossBody.src = "assets/bosstest.png"
   bossBody.id = "bossGuy"
   document.body.appendChild(bossBody)
-  bossBody.style.display = "block"
-  function bossController(){
-    bossBody.style.display = "block"
-}
   let ifPressed = false
   let newDiv = null
   let hit = false
@@ -623,7 +709,7 @@ function bossFight(){
         newDiv.style.left = `${positionRight + -75}px`;
         newDiv.style.top = `${positionTop+85}px`;
       }
-      x -= moveX;
+      x -= moveX * speedMultiplier;
       left = true;
       right = false;
       moving = true;
@@ -635,7 +721,7 @@ function bossFight(){
     }
 
     if(keys["d"]) {
-      x += moveX;
+      x += moveX * speedMultiplier;
       left = false;
       right = true;
       moving = true;
@@ -672,7 +758,10 @@ function bossFight(){
       }
       
     }
-
+    if (bossHealth <= 0){
+      bossHealth = 0
+      bossBody.style.display = "none"
+    }
     //  SPRITE LOGIC
     if (!onGround) {
       // JUMPING (overrides everything)
@@ -711,6 +800,7 @@ function bossFight(){
   setInterval(()=>{
     let positionLeft = character.getBoundingClientRect().left;
     let positionRight = character.getBoundingClientRect().right;
+    let positionBottom = character.getBoundingClientRect().bottom;
     let positionTop = character.getBoundingClientRect().top;
     if (keys["e"] && !ifPressed){
       ifPressed = true
@@ -720,7 +810,14 @@ function bossFight(){
       newDiv.style.width = "85px"
       newDiv.style.height = "90px"
       newDiv.style.zIndex = "100000000000000000000000000000000000000"
-      if(right){
+      if (!onGround ){
+        newDiv.style.position = "absolute";
+        newDiv.style.left = `${positionLeft + 75}px`;
+        newDiv.style.top = `${positionBottom - 40}px`;
+        
+
+      }
+      else if(right){
         newDiv.style.position = "absolute";
         newDiv.style.left = `${positionRight + -75}px`;
         newDiv.style.top = `${positionTop + 20}px`;
@@ -736,17 +833,22 @@ function bossFight(){
         ifPressed = false
       }, 200);
     }
+    
     if(newDiv && isColliding(newDiv, bossBody) && !hit){
       // Handle collision with boss
-      bossHealth += -1
+      bossHealth += -1 * damageMultiplier
       console.log(`Boss Health: ${bossHealth}`)
       hit = true
       setTimeout(() => {
         hit = false
-      }, 200);
+      }, 201);
     }
+    if(!onGround && hit){
+          velocityY = -10;
+          onGround = false;
+        }
   }, 1);
-  bossController()
+  
 }
 function isColliding(el1, el2) {
     const rect1 = el1.getBoundingClientRect();
@@ -766,10 +868,10 @@ function addValue(){
   spawnShanks()
   spawnParticles()
   if (rebirthCount == 0){
-    roseValue+=multiplier *rebirthMultiplier + Math.floor(((rpsRebirth + rpsPercent) * rpsPrevious))
+    roseValue+=multiplier *rebirthMultiplier + Math.floor(((rpsRebirth + rpsPercent) * rpsPrevious))*currencyMultiplier
   }
   else{
-    roseValue+=multiplier * rebirthMultiplier + Math.floor(((rpsRebirth + rpsPercent) * rpsPrevious))
+    roseValue+=multiplier * rebirthMultiplier + Math.floor(((rpsRebirth + rpsPercent) * rpsPrevious))*currencyMultiplier
   }
   setTimeout(() =>{
       hornetBtn.style.transform="scale(1.16)"
@@ -929,18 +1031,18 @@ function throwy(){
   if (roseValue >= costs[0]){
     if(!actives[0]){
       actives[0] = setInterval(() =>{
-        roseValue += (((counts[3]) * 3)+counts[0])
-        rps += (((counts[3]) * 3)+counts[0])
+        roseValue += (((counts[3]) * 3)+counts[0])*currencyMultiplier
+        rps += (((counts[3]) * 3)+counts[0])*currencyMultiplier
       },1000)
     }
 
 
     counts[0] += 1
-    roseValue -= costs[0]
+    roseValue -= costs[0]*priceMultiplier
     costs[0] = Math.trunc(costs[0] * 1.1)
     console.log(counts[0])
     lighttool.textContent =
-      `Get a Light Throwing Tool that gets you 1 Rosarie per second! Cost: ${costs[0]} Rosaries`
+      `Get a Light Throwing Tool that gets you 1 Rosarie per second! Cost: ${costs[0]*priceMultiplier} Rosaries`
   }
 }
 //function to add and manage the sharpened tool
@@ -949,16 +1051,16 @@ function sharpened(){
 
     if(!actives[1]){
       actives[1] = setInterval(() =>{
-        roseValue += (5*counts[1]) * sharpenMultiplier + ((counts[3] * 3)*counts[1])
-        rps += (5*counts[1])*sharpenMultiplier + ((counts[3] * 3)*counts[1])
+        roseValue += (5*counts[1]) * sharpenMultiplier + ((counts[3] * 3)*counts[1])*currencyMultiplier
+        rps += (5*counts[1])*sharpenMultiplier + ((counts[3] * 3)*counts[1])*currencyMultiplier
       },1000)
     }
 
     counts[1] += 1
-    roseValue -= costs[1]
+    roseValue -= costs[1]*priceMultiplier
     costs[1] = Math.trunc(costs[1] * 1.1)
     sharpen.textContent =
-      `Get your Nail to slash attack the button for ${5*sharpenMultiplier} Rosaries a second! Cost: ${costs[1]} Rosaries`
+      `Get your Nail to slash attack the button for ${5*sharpenMultiplier} Rosaries a second! Cost: ${costs[1] * priceMultiplier} Rosaries`
   }
 }
 //function to add and manage the threefold tool
@@ -967,15 +1069,15 @@ function threefoldfunc(){
 
     if(!actives[2]){
       actives[2] = setInterval(() =>{
-        roseValue += 5*counts[2] + (((counts[3] * 1)*counts[2]))
-        rps += 5*counts[2] + (((counts[3] * 1)*counts[2]))
+        roseValue += 5*counts[2] + (((counts[3] * 1)*counts[2]))*currencyMultiplier
+        rps += 5*counts[2] + (((counts[3] * 1)*counts[2]))*currencyMultiplier
       },333)
     }
 
     counts[2] += 1
-    roseValue -= costs[2]
+    roseValue -= costs[2]*priceMultiplier
     costs[2] = Math.trunc(costs[2] * 1.1)
-    threefoldBtn.textContent = `Get your Threefold Pin and throw pins at the button for 15 Rosaries a second! Cost: ${costs[2]} Rosaries`
+    threefoldBtn.textContent = `Get your Threefold Pin and throw pins at the button for 15 Rosaries a second! Cost: ${costs[2]*priceMultiplier} Rosaries`
   }
 }
 //function to add and manage the pale oil tool
@@ -985,6 +1087,6 @@ function paleOilFunc(){
     roseValue -= costs[3]
     costs[3] = Math.trunc(costs[3] * 1.65)
     costs[3] = paleOilCost
-    paleOil.textContent = `Get your Pale Oil to *BUFF* every one of your tools by +3 Rosaries! Cost: ${costs[3]} Rosaries`
+    paleOil.textContent = `Get your Pale Oil to *BUFF* every one of your tools by +3 Rosaries! Cost: ${costs[3]*priceMultiplier} Rosaries`
   }
 }
